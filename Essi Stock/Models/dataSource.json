@@ -1,0 +1,73 @@
+[
+    {
+        "id": 1,
+        "name": "Automatismes",
+        "icon": "https://t3.ftcdn.net/jpg/01/40/54/64/360_F_140546412_8lQVZGvN2P7uqc5jnOVlPOSyDpS4VUVU.jpg",
+        "categorites_level_one": [
+            {
+                "id": 1,
+                "name": "Capteurs",
+                "categorites_level_two": [
+                    {
+                        "id": 1,
+                        "name": "Accessoires",
+                        "items": [
+                            {
+                                "id": 1,
+                                "marque": "Schneider",
+                                "reference": "193-939-3939-92093",
+                                "image": "https://services4.cloud1.sbg.meosis.fr/sef-formation/wp-content/uploads/sites/30/2018/11/Siemens-logo-image-1.jpg",
+                                "price": "1200.95"
+                            },
+                            {
+                                "id": 2,
+                                "marque": "Schneider",
+                                "reference": "12939393",
+                                "image": "https://res.cloudinary.com/sonepar-fr/image/upload/s--bTpdd6L0--/c_pad,dpr_auto,f_auto,h_900,w_900/v1/products/1887/TM221C24T_PHOTOBD_1.jpg",
+                                "price": "200.98"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Connecteurs",
+                "categorites_level_two": [
+                    {
+                        "id": 2,
+                        "name": "3 Poles",
+                        "items": [
+                            {
+                                "id": 3,
+                                "marque": "RS PRO",
+                                "reference": "1283383838",
+                                "image": "https://www.studiosport.fr/upload/image/connecteur-xt60h-amass-avec-jupe-male-et-femelle-p-image-204807-grande.png",
+                                "price": "10.90"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Controle Process",
+                "categorites_level_two": [
+                    {
+                        "id": 3,
+                        "name": "Regulateur",
+                        "items": [
+                            {
+                                "id": 4,
+                                "marque": "Eurotherm",
+                                "reference": "3208",
+                                "image": "https://i.ebayimg.com/images/g/TzoAAOSwD8BZbIZ2/s-l640.jpg",
+                                "price": "1500"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
