@@ -27,7 +27,6 @@ class APIServices: ObservableObject{
         guard let jsonResponse = try? decoder.decode([ItemModel].self, from: data) else {throw RequestError.missingData}
         DispatchQueue.main.async {
             self.items = jsonResponse
-            
         }
     }
 }

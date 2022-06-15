@@ -13,12 +13,15 @@ struct ItemsView: View {
     
     var body: some View {
         List($categoriteLevelTwo.items){$item in
-            Button(action: {
+            Button(action: { 
             }, label: {
                 ItemCellHelper(item: $item)
             })
         }
         .listStyle(.plain)
+        .refreshable {
+            print("DEBUG: Pull to refresh")
+        }
         .navigationTitle(categoriteLevelTwo.name)
     }
 }

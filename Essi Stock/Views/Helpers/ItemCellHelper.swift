@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ItemCellHelper: View {
     
-    @ObservedObject var apiServices = APIServices()
     @Binding var item: Item
     
     var body: some View {

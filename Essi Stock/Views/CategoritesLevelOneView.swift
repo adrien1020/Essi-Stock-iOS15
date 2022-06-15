@@ -18,9 +18,6 @@ struct CategoritesLevelOneView: View {
             }
             .isDetailLink(false)
         }
-        .onAppear(){
-            print(categorite)
-        }
         .listStyle(.plain)
         .navigationTitle(categorite.name)
     }

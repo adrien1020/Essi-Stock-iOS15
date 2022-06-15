@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0949FC2859A43000662370 /* SearchBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0949FB2859A43000662370 /* SearchBarHelper.swift */; };
+		9F094A002859AD2400662370 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0949FF2859AD2400662370 /* SearchView.swift */; };
 		9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653C28591F570092EC26 /* Essi_StockApp.swift */; };
 		9F55653F28591F570092EC26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653E28591F570092EC26 /* ContentView.swift */; };
 		9F55654128591F590092EC26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F55654028591F590092EC26 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0949FB2859A43000662370 /* SearchBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarHelper.swift; sourceTree = "<group>"; };
+		9F0949FF2859AD2400662370 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9F55653928591F570092EC26 /* Essi Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Essi Stock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F55653C28591F570092EC26 /* Essi_StockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Essi_StockApp.swift; sourceTree = "<group>"; };
 		9F55653E28591F570092EC26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				9F556554285922400092EC26 /* CategoritesLevelOneView.swift */,
 				9F556556285922530092EC26 /* CategoritesLevelTwoView.swift */,
 				9F5565582859226B0092EC26 /* ItemsView.swift */,
+				9F0949FF2859AD2400662370 /* SearchView.swift */,
 				9F55655A28592B3F0092EC26 /* Helpers */,
 			);
 			path = Views;
@@ -127,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				9F55655B28592B520092EC26 /* ItemCellHelper.swift */,
+				9F0949FB2859A43000662370 /* SearchBarHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -205,12 +211,14 @@
 				9F55653F28591F570092EC26 /* ContentView.swift in Sources */,
 				9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */,
 				9F556551285920C40092EC26 /* ItemModel.swift in Sources */,
+				9F0949FC2859A43000662370 /* SearchBarHelper.swift in Sources */,
 				9F5565532859222A0092EC26 /* CategoritesView.swift in Sources */,
 				9F55654F2859209D0092EC26 /* APIServices.swift in Sources */,
 				9F556555285922400092EC26 /* CategoritesLevelOneView.swift in Sources */,
 				9F55655C28592B520092EC26 /* ItemCellHelper.swift in Sources */,
 				9F556557285922530092EC26 /* CategoritesLevelTwoView.swift in Sources */,
 				9F5565592859226B0092EC26 /* ItemsView.swift in Sources */,
+				9F094A002859AD2400662370 /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

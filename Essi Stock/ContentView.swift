@@ -9,8 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var selectedTab = "house.fill"
     @Environment(\.colorScheme) var colorScheme
+    
+    @StateObject var apiServices =  APIServices()
+    
+    @State var selectedTab = "house.fill"
+    @State var searchText = ""
+    
     var iconName = ["house.fill","person.fill","magnifyingglass"]
     
     init() {
@@ -20,11 +25,14 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0){
             TabView(selection: $selectedTab) {
-                CategoritesView()
+                CategoritesView(selectedTab: $selectedTab)
+                    .environmentObject(apiServices)
                     .tag(iconName[0])
-                CategoritesView()
+                CategoritesView(selectedTab: $selectedTab)
+                    .environmentObject(apiServices)
                     .tag(iconName[1])
-                CategoritesView()
+                SearchView()
+                    .environmentObject(apiServices)
                     .tag(iconName[2])
             }
             Divider()
@@ -38,6 +46,18 @@ struct ContentView: View {
             .background(colorScheme == .dark ? Color.black : Color.white)
         }
         .ignoresSafeArea(.keyboard)
+        .onAppear(){
+            Task{
+                do {
+                    print("DEBUG: Download data")
+                    try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+                } catch RequestError.invalidURL{
+                    print("DEBUG: Invalid URL")
+                } catch RequestError.missingData{
+                    print("DEBUG: Missing data")
+                }
+            }
+        }
     }
 }
 
@@ -50,12 +70,20 @@ struct TabButton: View {
     var body: some View {
         Button(action: {
             selectedTab = image
+            closeKeyboard()
         }, label: {
             Image(systemName: image)
                 .font(.system(size: 25))
                 .foregroundColor(selectedTab == image ? Color("Orange Color") : .black.opacity(0.4))
                 .padding()
         })
+    }
+}
+
+extension View{
+    func closeKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
