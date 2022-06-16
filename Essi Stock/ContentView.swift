@@ -25,10 +25,10 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0){
             TabView(selection: $selectedTab) {
-                CategoritesView(selectedTab: $selectedTab)
+                HomeView()
                     .environmentObject(apiServices)
                     .tag(iconName[0])
-                CategoritesView(selectedTab: $selectedTab)
+                CategoritesView()
                     .environmentObject(apiServices)
                     .tag(iconName[1])
                 SearchView()
@@ -47,16 +47,7 @@ struct ContentView: View {
         }
         .ignoresSafeArea(.keyboard)
         .onAppear(){
-            Task{
-                do {
-                    print("DEBUG: Download data")
-                    try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
-                } catch RequestError.invalidURL{
-                    print("DEBUG: Invalid URL")
-                } catch RequestError.missingData{
-                    print("DEBUG: Missing data")
-                }
-            }
+            fetchData(apiServices: apiServices)
         }
     }
 }
@@ -85,6 +76,24 @@ extension View{
         UIApplication.shared.sendAction(
             #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
+    func fetchData(apiServices: APIServices){
+        Task{
+            do {
+                print("DEBUG: Download data")
+                try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+            } catch RequestError.invalidURL{
+                print("DEBUG: Invalid URL")
+            } catch RequestError.missingData{
+                print("DEBUG: Missing data")
+            }
+            let generator = UINotificationFeedbackGenerator()
+            await generator.notificationOccurred(.success)
+        }
+        
+    }
+    
+    
 }
 
 

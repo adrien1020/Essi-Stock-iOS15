@@ -13,35 +13,9 @@ struct CategoritesView: View {
     
     @State var searchText = ""
     
-    
     let columns: [GridItem] = [GridItem(.adaptive(minimum:150), spacing: 4)]
     
-    
-    init(selectedTab : Binding<String>) {
-        let navBarAppearance = UINavigationBarAppearance()
-        
-        //forgreoundColor of navigation title
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(.black)]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemBackground]
-        
-        //backgroundcolor of navigation bar
-        navBarAppearance.backgroundColor = .white
-        
-        //clear navigation bar divider
-        navBarAppearance.shadowColor = .clear
-        
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-        UINavigationBar.appearance().compactAppearance = navBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-        
-        //tintColor of back navigation button
-        UINavigationBar.appearance().tintColor = UIColor(named: "Orange Color")
-    }
-    
     var body: some View {
-        NavigationView{
-            VStack{
-            SearchBarHelper(searchText: $searchText)
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 12){
                     ForEach($apiServices.items){ $categorite in
@@ -76,20 +50,12 @@ struct CategoritesView: View {
                 }
                 .padding(.top, 6)
             }
-            .onTapGesture {
-                closeKeyboard()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarHidden(true)
-        }
-    }
-        .navigationViewStyle(.stack)
     }
 }
 
 
 struct CategoritesView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoritesView(selectedTab: .constant("house.fill"))
+        CategoritesView()
     }
 }

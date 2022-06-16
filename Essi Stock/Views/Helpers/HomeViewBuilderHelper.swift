@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeViewBuilder<Content:View>: View {
+struct HomeViewBuilderHelper<Content:View>: View {
     
     @EnvironmentObject var apiServices: APIServices
     

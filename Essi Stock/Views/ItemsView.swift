@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ItemsView: View {
     
+    @EnvironmentObject var apiServices: APIServices
     @Binding var categoriteLevelTwo: CategoritesLevelTwo
     
     var body: some View {
@@ -20,7 +21,7 @@ struct ItemsView: View {
         }
         .listStyle(.plain)
         .refreshable {
-            print("DEBUG: Pull to refresh")
+            fetchData(apiServices: apiServices)
         }
         .navigationTitle(categoriteLevelTwo.name)
     }

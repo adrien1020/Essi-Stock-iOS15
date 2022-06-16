@@ -12,7 +12,7 @@ struct SearchBarHelper: View {
     @Binding var searchText : String
     
     @State private var showedActionSheetCart = false
-    @State var showedActionSheetQRCode = false
+    @State var showCameraReader = false
     @State private var isEditingChanged = false
     
     var body: some View {
@@ -38,7 +38,7 @@ struct SearchBarHelper: View {
                 HStack{
                     
                     Button(action: {
-                        showedActionSheetQRCode.toggle()
+                        showCameraReader.toggle()
                     }, label: {
                         Image(systemName: "camera.viewfinder")
                             .resizable()
@@ -68,9 +68,10 @@ struct SearchBarHelper: View {
             CartView()
                 .environmentObject(dataManagerVM)
         }
-        .sheet(isPresented:$isShowedActionSheetQRCode){
-            ReaderView(isShowerActionSheet: $isShowedActionSheetQRCode)
-        }*/
+         */
+        .sheet(isPresented:$showCameraReader){
+            CameraReaderView(showCameraReader: $showCameraReader)
+        }
     }
 }
 

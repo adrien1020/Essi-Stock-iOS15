@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct TabModel: Hashable{
+    var name: String
+    var icon: String
+}
