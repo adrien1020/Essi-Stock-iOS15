@@ -29,4 +29,18 @@ class APIServices: ObservableObject{
             self.items = jsonResponse
         }
     }
+    
+    func getItemIndex(item:Item, completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
+        for catIndex in items.indices{
+            for catL1Index in items[catIndex].categoritesLevelOne.indices{
+                for catL2Index in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices{
+                    for itemIndex in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices{
+                        if item.id == items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].id{
+                            completionHandler(catIndex, catL1Index, catL2Index, itemIndex)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

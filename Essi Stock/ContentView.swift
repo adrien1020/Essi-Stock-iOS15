@@ -26,15 +26,17 @@ struct ContentView: View {
         VStack(spacing: 0){
             TabView(selection: $selectedTab) {
                 HomeView()
-                    .environmentObject(apiServices)
+                    //.environmentObject(apiServices)
                     .tag(iconName[0])
                 CategoritesView()
-                    .environmentObject(apiServices)
+                    //.environmentObject(apiServices)
                     .tag(iconName[1])
                 SearchView()
-                    .environmentObject(apiServices)
+                    //.environmentObject(apiServices)
                     .tag(iconName[2])
             }
+            .environmentObject(apiServices)
+            
             Divider()
             HStack{
                 ForEach(iconName, id: \.self) { image in

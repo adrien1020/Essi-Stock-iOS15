@@ -12,10 +12,10 @@ struct CategoritesLevelOneView: View {
     @EnvironmentObject var apiServices : APIServices
     
     @Binding var categorite: ItemModel
-    
+        
     var body: some View {
         List($categorite.categoritesLevelOne){ $categoriteLevelOne in
-            NavigationLink(destination: CategoritesLevelTwoView(categoriteLevelOne: $categoriteLevelOne)){
+            NavigationLink(destination: CategoritesLevelTwoView(categoriteLevelOne: $categoriteLevelOne).environmentObject(apiServices)){
                 Text(categoriteLevelOne.name)
             }
             .isDetailLink(false)

@@ -19,7 +19,7 @@ struct CategoritesView: View {
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 12){
                     ForEach($apiServices.items){ $categorite in
-                        NavigationLink(destination: CategoritesLevelOneView(categorite: $categorite)){
+                        NavigationLink(destination: CategoritesLevelOneView(categorite: $categorite).environmentObject(apiServices)){
                             VStack{
                                 AsyncImage(url: URL(string: categorite.icon),
                                            content: { image in

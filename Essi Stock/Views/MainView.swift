@@ -50,10 +50,10 @@ struct MainView: View {
                         .padding(.horizontal)
                         ScrollView(.horizontal){
                             HStack(spacing:30){
-                                ForEach(0..<apiServices.items.count, id:\.self){catIndex in
-                                    ForEach(0..<apiServices.items[catIndex].categoritesLevelOne.count, id:\.self){catL1Index in
-                                        ForEach(0..<apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.count, id:\.self){catL2Index in
-                                            ForEach(0..<apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.count, id:\.self){itemIndex in
+                                ForEach(apiServices.items.indices, id:\.self){catIndex in
+                                    ForEach(apiServices.items[catIndex].categoritesLevelOne.indices, id:\.self){catL1Index in
+                                        ForEach(apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices, id:\.self){catL2Index in
+                                            ForEach(apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices, id:\.self){itemIndex in
                                                 AsyncImage(url: URL(string: apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].image),
                                                            content: { image in
                                                     image

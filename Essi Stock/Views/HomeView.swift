@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject var apiServices: APIServices
+    
     @State var searchText = ""
     @State private var currentTab = TabModel(name: "Principal", icon: "folder")
     
@@ -42,6 +44,7 @@ struct HomeView: View {
         NavigationView{
             HomeViewBuilderHelper(searchText: $searchText, currentTab: $currentTab, animation: animation, tabs: tabs, content: {
                 PagesSelection()
+                    
                     .onTapGesture {
                         closeKeyboard()
                     }
@@ -50,6 +53,7 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }
+        .environmentObject(apiServices)
         .navigationViewStyle(.stack)
     }
     
@@ -57,8 +61,10 @@ struct HomeView: View {
         switch currentTab{
         case .init(name: "Principal", icon: "folder"):
             MainView()
+                
         case .init(name: "Catégorites", icon: "circle.grid.2x2"):
             CategoritesView()
+                .environmentObject(apiServices)
         default:
             Text("La vue n'éxiste pas")
         }
