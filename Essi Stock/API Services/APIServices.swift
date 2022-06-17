@@ -17,7 +17,9 @@ class APIServices: ObservableObject{
     
     @Published var items: [ItemModel] = []
     @Published var isFavorites : [Item] = []
+    @Published var itemsCart : [Item] = []
     
+    var lastAddedItem: Item?
     
     func fetchData(urlString: String) async throws {
         guard let url = URL(string: urlString) else {throw RequestError.invalidURL}
@@ -41,6 +43,42 @@ class APIServices: ObservableObject{
                     }
                 }
             }
+        }
+    }
+    
+    func addToCart(item: Item, quantityDesired: Int){
+        let id = item.id
+        let marque = item.marque
+        let reference = item.reference
+        let image = item.image
+        let price = item.price
+        let isFavorite = item.isFavorite
+        let desiredQuantity = quantityDesired
+        
+        
+        let newItem = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: desiredQuantity)
+        
+        
+        if !itemsCart.isEmpty{
+            //Check if itemsCart isn't empty and add new Item, new Item is stored in lastAddedItem variable
+            if newItem.id != lastAddedItem!.id{
+                print("pas Egal")
+                itemsCart.append(newItem)
+                lastAddedItem = newItem
+            } else {
+                // Update item in itemsCart Array if the quantity changed. New Item is stored in lastAddedItem variable
+                for i in 0..<itemsCart.count{
+                    if itemsCart[i].id == newItem.id{
+                        print("update")
+                        itemsCart[i] = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: itemsCart[i].desiredQuantity + quantityDesired)
+                        lastAddedItem = itemsCart[i]
+                    }
+                }
+            }
+        } else {
+            // Add new item in itemsCart Array. New Item is stored in lastAddedItem variable
+            lastAddedItem = newItem
+            itemsCart.append(newItem)
         }
     }
 }

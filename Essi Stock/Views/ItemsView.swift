@@ -11,47 +11,32 @@ struct ItemsView: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    @Binding var categoriteLevelTwo: CategoritesLevelTwo
-    
-    @State var navigateToDetailsView  = false
-   
-    //@State var item: Item
+    @State var navigateToDetailsView = false
+    @State var showCartView = false
+    var categoriteLevelTwo: CategoritesLevelTwo
     
     var body: some View {
-        List($categoriteLevelTwo.items){$item in
-            NavigationLink(destination: DetailsView(item: $item)){
-                
-                ItemCellHelper(item: $item)
-                
-                
-            }
-            
-            /*
+        List(categoriteLevelTwo.items){item in
             Button(action: {
-                //self.item = item
-                //navigateToDetailsView.toggle()
+                navigateToDetailsView.toggle()
             }, label: {
-                
-            })*/
-            
+                ItemCellHelper(navigateToDetailsView: $navigateToDetailsView, showCartView: $showCartView, item: item)
+            })
         }
         .listStyle(.plain)
         .refreshable {
             fetchData(apiServices: apiServices)
         }
         .navigationTitle(categoriteLevelTwo.name)
-        /*
-        .sheet(isPresented: $navigateToDetailsView, content: {
-            DetailsView(item: $item)
-                .environmentObject(apiServices)
-        })*/
+        .sheet(isPresented: $showCartView, content: {
+            CartView()
+        })
     }
-        
 }
 
 /*
-struct ItemsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemsView()
-    }
-}*/
+ struct ItemsView_Previews: PreviewProvider {
+ static var previews: some View {
+ ItemsView()
+ }
+ }*/

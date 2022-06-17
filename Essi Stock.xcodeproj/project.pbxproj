@@ -12,6 +12,7 @@
 		9F102EF6285A866E0022FBDB /* CameraPreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */; };
 		9F102EF8285A869C0022FBDB /* CameraReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF7285A869C0022FBDB /* CameraReaderView.swift */; };
 		9F102EFA285A8CE50022FBDB /* PhotoButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */; };
+		9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F40EDC7285BCECC0053FFDF /* CartView.swift */; };
 		9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653C28591F570092EC26 /* Essi_StockApp.swift */; };
 		9F55653F28591F570092EC26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653E28591F570092EC26 /* ContentView.swift */; };
 		9F55654128591F590092EC26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F55654028591F590092EC26 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		9F5565592859226B0092EC26 /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5565582859226B0092EC26 /* ItemsView.swift */; };
 		9F55655C28592B520092EC26 /* ItemCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55655B28592B520092EC26 /* ItemCellHelper.swift */; };
 		9F55655E285937880092EC26 /* dataSource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F55655D285937880092EC26 /* dataSource.json */; };
+		9F656A40285C4628003C00F7 /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */; };
 		9F88F837285A797F00D0A8C9 /* SegmentedControlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */; };
 		9F88F839285A79CF00D0A8C9 /* TabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F838285A79CF00D0A8C9 /* TabModel.swift */; };
 		9F88F83B285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F83A285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift */; };
@@ -40,6 +42,7 @@
 		9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewHelper.swift; sourceTree = "<group>"; };
 		9F102EF7285A869C0022FBDB /* CameraReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReaderView.swift; sourceTree = "<group>"; };
 		9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoButtonHelper.swift; sourceTree = "<group>"; };
+		9F40EDC7285BCECC0053FFDF /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		9F55653928591F570092EC26 /* Essi Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Essi Stock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F55653C28591F570092EC26 /* Essi_StockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Essi_StockApp.swift; sourceTree = "<group>"; };
 		9F55653E28591F570092EC26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		9F5565582859226B0092EC26 /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
 		9F55655B28592B520092EC26 /* ItemCellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellHelper.swift; sourceTree = "<group>"; };
 		9F55655D285937880092EC26 /* dataSource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dataSource.json; sourceTree = "<group>"; };
+		9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogView.swift; sourceTree = "<group>"; };
 		9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlHelper.swift; sourceTree = "<group>"; };
 		9F88F838285A79CF00D0A8C9 /* TabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabModel.swift; sourceTree = "<group>"; };
 		9F88F83A285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewBuilderHelper.swift; sourceTree = "<group>"; };
@@ -143,7 +147,9 @@
 				9FFA80E1285AF2AA00318C25 /* DetailsView.swift */,
 				9F0949FF2859AD2400662370 /* SearchView.swift */,
 				9F102EF7285A869C0022FBDB /* CameraReaderView.swift */,
+				9F40EDC7285BCECC0053FFDF /* CartView.swift */,
 				9F55655A28592B3F0092EC26 /* Helpers */,
+				9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 				9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */,
 				9F556551285920C40092EC26 /* ItemModel.swift in Sources */,
 				9F102EF8285A869C0022FBDB /* CameraReaderView.swift in Sources */,
+				9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */,
 				9F0949FC2859A43000662370 /* SearchBarHelper.swift in Sources */,
 				9F88F837285A797F00D0A8C9 /* SegmentedControlHelper.swift in Sources */,
 				9FFA80E4285AFD2E00318C25 /* DetailsViewModel.swift in Sources */,
@@ -260,6 +267,7 @@
 				9F88F839285A79CF00D0A8C9 /* TabModel.swift in Sources */,
 				9F102EF6285A866E0022FBDB /* CameraPreviewHelper.swift in Sources */,
 				9F102EFA285A8CE50022FBDB /* PhotoButtonHelper.swift in Sources */,
+				9F656A40285C4628003C00F7 /* ConfirmationDialogView.swift in Sources */,
 				9F88F83F285A7C1F00D0A8C9 /* HomeView.swift in Sources */,
 				9F88F83D285A7A8B00D0A8C9 /* MainView.swift in Sources */,
 				9F094A002859AD2400662370 /* SearchView.swift in Sources */,

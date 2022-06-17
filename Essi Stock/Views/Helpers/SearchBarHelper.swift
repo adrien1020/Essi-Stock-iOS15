@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SearchBarHelper: View {
+    
+    @EnvironmentObject var apiServices: APIServices
 
     @Binding var searchText : String
     
-    @State private var showedActionSheetCart = false
-    @State var showCameraReader = false
+    @State private var showCartView = false
+    @State var showCameraReaderView = false
     @State private var isEditingChanged = false
     
     var body: some View {
@@ -21,56 +23,46 @@ struct SearchBarHelper: View {
                 withAnimation(.easeIn){
                     self.isEditingChanged = changed
                 }
-                
             }, onCommit: {
                 print("DEBUG: Text Field commit")
             })
-            
             .padding(.leading, 20)
             .frame(height: 40)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color("Orange Color"),lineWidth: 2))
-            
-            
-           
             if !isEditingChanged{
                 HStack{
                     
                     Button(action: {
-                        showCameraReader.toggle()
+                        showCameraReaderView.toggle()
                     }, label: {
                         Image(systemName: "camera.viewfinder")
                             .resizable()
                             .frame(width: 26, height: 26)
                             .foregroundColor(Color("Orange Color"))
                             .padding(.horizontal, 10)
-                        
                     })
                     Button(action: {
-                        showedActionSheetCart.toggle()
+                        showCartView.toggle()
                     }, label: {
-                        
                         Image(systemName: "cart")
                             .resizable()
                             .frame(width: 26, height: 26)
                             .foregroundColor(Color("Orange Color"))
                             .padding(.horizontal, 10)
-                        
                     })
                 }
             }
         }
         .padding(.top, 5)
         .padding(.horizontal, 10)
-        /*
-        .sheet(isPresented:$isShowedActionSheetCart){
+        .sheet(isPresented:$showCartView){
             CartView()
-                .environmentObject(dataManagerVM)
+                .environmentObject(apiServices)
         }
-         */
-        .sheet(isPresented:$showCameraReader){
-            CameraReaderView(showCameraReader: $showCameraReader)
+        .sheet(isPresented:$showCameraReaderView){
+            CameraReaderView(showCameraReader: $showCameraReaderView)
         }
     }
 }

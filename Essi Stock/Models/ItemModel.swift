@@ -64,7 +64,7 @@ struct Item: Hashable, Identifiable, Codable{
     let image: String
     let price: String
     var isFavorite = false
-    
+    var desiredQuantity = 1
     
     enum CodingKeys: String, CodingKey {
              case id, marque, reference, image, price

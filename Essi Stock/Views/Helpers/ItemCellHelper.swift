@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ItemCellHelper: View {
     
-    @Binding var item: Item
+    @EnvironmentObject var apiServices: APIServices
+    
+    @Binding var navigateToDetailsView : Bool
+    @Binding var showCartView: Bool
+    
+    var item: Item
     
     var body: some View {
         VStack{
@@ -41,7 +46,18 @@ struct ItemCellHelper: View {
                 }
                 Spacer()
                 Button(action: {
-                    item.isFavorite.toggle()
+                    //item.isFavorite.toggle()
+                    apiServices.getItemIndex(item: item, completionHandler: {catIndex, catL1Index, catL2Index, itemIndex in
+                        
+                        apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite.toggle()
+                        
+                        
+                    })
+                    
+                    
+                    
+                    
+                    
                 }, label: {
                     Image(systemName: item.isFavorite ? "heart.fill": "heart" )
                         .foregroundColor(.red)
@@ -49,6 +65,10 @@ struct ItemCellHelper: View {
             }
             .padding(.horizontal, 6)
         }
+        .sheet(isPresented: $navigateToDetailsView, content: {
+            DetailsView(showCartView: $showCartView, item: item)
+                .environmentObject(apiServices)
+        })
     }
 }
 
