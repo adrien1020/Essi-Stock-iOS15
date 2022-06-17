@@ -19,8 +19,6 @@ class APIServices: ObservableObject{
     @Published var isFavorites : [Item] = []
     @Published var itemsCart : [Item] = []
     
-    var lastAddedItem: Item?
-    
     func fetchData(urlString: String) async throws {
         guard let url = URL(string: urlString) else {throw RequestError.invalidURL}
         guard let (data, resp) = try? await URLSession.shared.data(from: url) else{throw RequestError.invalidURL}
@@ -58,26 +56,24 @@ class APIServices: ObservableObject{
         
         let newItem = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: desiredQuantity)
         
-        
-        if !itemsCart.isEmpty{
-            //Check if itemsCart isn't empty and add new Item, new Item is stored in lastAddedItem variable
-            if newItem.id != lastAddedItem!.id{
-                print("pas Egal")
-                itemsCart.append(newItem)
-                lastAddedItem = newItem
-            } else {
-                // Update item in itemsCart Array if the quantity changed. New Item is stored in lastAddedItem variable
-                for i in 0..<itemsCart.count{
-                    if itemsCart[i].id == newItem.id{
-                        print("update")
-                        itemsCart[i] = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: itemsCart[i].desiredQuantity + quantityDesired)
-                        lastAddedItem = itemsCart[i]
-                    }
-                }
+        //Check if newItem exist in itemsCart
+        var isExist = false
+        var index = 0
+        for i in itemsCart.indices{
+            if newItem.id == itemsCart[i].id{
+                isExist = true
+                index = i
             }
+        }
+        
+        //if newItem exist, quantity desired will be updated
+        if isExist{
+            print("DEBUG: Update item in cart")
+            itemsCart[index] = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: itemsCart[index].desiredQuantity + quantityDesired)
+            
+            //if new item doesn't exist it will be added
         } else {
-            // Add new item in itemsCart Array. New Item is stored in lastAddedItem variable
-            lastAddedItem = newItem
+            print("DEBUG: Add new item in cart")
             itemsCart.append(newItem)
         }
     }

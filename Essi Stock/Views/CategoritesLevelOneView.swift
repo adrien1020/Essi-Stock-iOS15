@@ -12,7 +12,7 @@ struct CategoritesLevelOneView: View {
     @EnvironmentObject var apiServices : APIServices
     
     var categorite: ItemModel
-        
+    
     var body: some View {
         List(categorite.categoritesLevelOne){ categoriteLevelOne in
             NavigationLink(destination: CategoritesLevelTwoView(categoriteLevelOne: categoriteLevelOne).environmentObject(apiServices)){
@@ -20,6 +20,21 @@ struct CategoritesLevelOneView: View {
             }
             .isDetailLink(false)
         }
+        /*
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    //showCartView.toggle()
+                }, label: {
+                    Image(systemName: "cart")
+                        .resizable()
+                        .frame(width: 26, height: 26)
+                        .foregroundColor(Color("Orange Color"))
+                    
+                })
+            }
+        }
+         */
         .listStyle(.plain)
         .navigationTitle(categorite.name)
         .refreshable {
@@ -29,13 +44,13 @@ struct CategoritesLevelOneView: View {
 }
 
 /*
-struct CategoritesLevelOneView_Previews: PreviewProvider {
-    @State static var modelData = APIServices()
-    static var previews: some View {
-        CategoritesLevelOneView(categorite: $modelData.items[0])
-            .environmentObject(modelData)
-    }
-}
-*/
+ struct CategoritesLevelOneView_Previews: PreviewProvider {
+ @State static var modelData = APIServices()
+ static var previews: some View {
+ CategoritesLevelOneView(categorite: $modelData.items[0])
+ .environmentObject(modelData)
+ }
+ }
+ */
 
 

@@ -148,8 +148,8 @@
 				9F0949FF2859AD2400662370 /* SearchView.swift */,
 				9F102EF7285A869C0022FBDB /* CameraReaderView.swift */,
 				9F40EDC7285BCECC0053FFDF /* CartView.swift */,
-				9F55655A28592B3F0092EC26 /* Helpers */,
 				9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */,
+				9F55655A28592B3F0092EC26 /* Helpers */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -16,8 +16,9 @@ struct ConfirmationDialogView: View {
     @Binding var offset: CGFloat
     @Binding var showConfirmationDialogView : Bool
     @Binding var quantityDesired: Int
-  
     @Binding var showCartView : Bool
+    
+    @State var lastOffset : CGFloat = 0
     
     var item: Item
     
@@ -25,7 +26,7 @@ struct ConfirmationDialogView: View {
         GeometryReader{ geometry in
             VStack{
                 let width = geometry.size.width
-                let height = geometry.size.height/2.5
+                let height = (geometry.size.height/2.5)
                 Spacer()
                 ZStack{
                     Color.white
@@ -42,21 +43,15 @@ struct ConfirmationDialogView: View {
                             Text("Ajouté au panier").foregroundColor(.black)
                             Text("\(quantityDesired)")
                             Text(item.marque)
-                            
                             Spacer()
                         }
                         .padding()
-                        
                         Spacer()
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
-                           
                             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
                                 showCartView.toggle()
                             })
-                        
-                               
-
                         }, label: {
                             Text("Voir le panier")
                                 .foregroundColor(Color.white)
@@ -67,20 +62,48 @@ struct ConfirmationDialogView: View {
                                 .cornerRadius(15)
                             
                         })
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 120)
                     }
                 }
                 
-                .frame(width: width, height: height, alignment: .bottom)
+                .frame(width: width, height: height + 100, alignment: .bottom)
                 .offset(y: showConfirmationDialogView ? 0 : height)
+                .offset(y: offset <= -20 ? -10 : offset + 100)
                 .gesture(DragGesture().updating($gestureOffset, body: {value, state, transaction in
-                    
                     state = value.translation.height
-                  print(state)
-          
+                    print(state)
+                    
+                    
+                    
+                    
+                    onChange(state: state)
+                }).onEnded({ value in
+                    
+                    
+                    
+                    
+                    let maxHeight = height
+                    if offset<0{
+                        withAnimation{
+                            offset = 0
+                        }
+                    }
+                    if offset > 50{
+                        withAnimation{
+                            offset = maxHeight
+                        }
+                    }
+                    lastOffset = self.offset
+                    print("DEBUG: last offset = \(lastOffset)")
                 }))
             }
-            .ignoresSafeArea(.all, edges: .bottom)
+            .ignoresSafeArea()
+            //.ignoresSafeArea(.all, edges: .bottom)
+        }
+    }
+    func onChange(state: Double){
+        DispatchQueue.main.async {
+            self.offset = state + lastOffset
         }
     }
 }

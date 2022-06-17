@@ -83,7 +83,7 @@ struct DetailsView: View {
                                 Button(action: {
                                     apiServices.addToCart(item: item, quantityDesired: quantityDesired)
                                     withAnimation(.linear){
-                                        showConfirmationDialogView.toggle()
+                                        showConfirmationDialogView = true
                                         blurRadius = 5
                                     }
                                    
@@ -104,7 +104,7 @@ struct DetailsView: View {
                     .padding(.vertical, 15)
                 }
             }
-            .blur(radius: showConfirmationDialogView ?  blurRadius: 0)
+            //.blur(radius: showConfirmationDialogView ?  blurRadius: 0)
             ConfirmationDialogView(offset: $offset, showConfirmationDialogView: $showConfirmationDialogView, quantityDesired: $quantityDesired, showCartView: $showCartView, item: item)
         }
     }
