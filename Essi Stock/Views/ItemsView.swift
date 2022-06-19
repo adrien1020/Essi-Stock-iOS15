@@ -13,6 +13,7 @@ struct ItemsView: View {
     
     @State var navigateToDetailsView = false
     @State var showCartView = false
+    
     var categoriteLevelTwo: CategoritesLevelTwo
     
     var body: some View {

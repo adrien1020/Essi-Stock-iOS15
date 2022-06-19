@@ -56,7 +56,7 @@ class APIServices: ObservableObject{
         
         let newItem = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: desiredQuantity)
         
-        //Check if newItem exist in itemsCart
+        //Check if newItem exist in itemsCart array
         var isExist = false
         var index = 0
         for i in itemsCart.indices{
@@ -66,12 +66,12 @@ class APIServices: ObservableObject{
             }
         }
         
-        //if newItem exist, quantity desired will be updated
+        //if newItem exist in itemCart array, quantity desired will be updated
         if isExist{
             print("DEBUG: Update item in cart")
             itemsCart[index] = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: itemsCart[index].desiredQuantity + quantityDesired)
             
-            //if new item doesn't exist it will be added
+            //if new item doesn't exist in itemCart, it will be added
         } else {
             print("DEBUG: Add new item in cart")
             itemsCart.append(newItem)

@@ -36,7 +36,6 @@ struct ContentView: View {
                     .tag(iconName[2])
             }
             .environmentObject(apiServices)
-            
             Divider()
             HStack{
                 ForEach(iconName, id: \.self) { image in
@@ -92,10 +91,7 @@ extension View{
             let generator = UINotificationFeedbackGenerator()
             await generator.notificationOccurred(.success)
         }
-        
     }
-    
-    
 }
 
 
