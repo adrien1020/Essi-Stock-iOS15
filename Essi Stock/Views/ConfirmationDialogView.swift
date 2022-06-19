@@ -18,7 +18,6 @@ struct ConfirmationDialogView: View {
     @Binding var showCartView : Bool
     @Binding var offset: CGFloat
     
-    @State var navigateToDetailsView = false
     @State var openOffset: CGFloat = 0
     
     var item: Item
@@ -50,7 +49,7 @@ struct ConfirmationDialogView: View {
                         }
                         .padding()
                         Spacer()
-                        ItemCellHelper(navigateToDetailsView: $navigateToDetailsView, showCartView:$showCartView , item: item)
+                        ItemCellHelper( showCartView:$showCartView , item: item)
                             .padding()
                         Spacer()
                         Button(action: {
@@ -59,7 +58,7 @@ struct ConfirmationDialogView: View {
                                 showCartView.toggle()
                             })
                         }, label: {
-                            Text("Voir le panier")
+                            Text("Accéder le panier")
                                 .foregroundColor(Color.white)
                                 .fontWeight(.bold)
                                 .padding()

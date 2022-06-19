@@ -11,7 +11,6 @@ struct ItemCellHelper: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    @Binding var navigateToDetailsView : Bool
     @Binding var showCartView: Bool
     
     var item: Item
@@ -65,19 +64,15 @@ struct ItemCellHelper: View {
             }
             .padding(.horizontal, 6)
         }
-        .sheet(isPresented: $navigateToDetailsView, content: {
-            DetailsView(showCartView: $showCartView, item: item)
-                .environmentObject(apiServices)
-        })
     }
 }
 
 
 /*
-struct ItemCellHelper_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        ItemCellHelper(item: $item)
-    }
-}
-*/
+ struct ItemCellHelper_Previews: PreviewProvider {
+ static var previews: some View {
+ 
+ ItemCellHelper(item: $item)
+ }
+ }
+ */

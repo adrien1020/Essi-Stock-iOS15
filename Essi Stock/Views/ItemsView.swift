@@ -11,17 +11,17 @@ struct ItemsView: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    @State var navigateToDetailsView = false
     @State var showCartView = false
     
     var categoriteLevelTwo: CategoritesLevelTwo
     
+    @State var item : Item?
     var body: some View {
         List(categoriteLevelTwo.items){item in
             Button(action: {
-                navigateToDetailsView.toggle()
+                self.item = item
             }, label: {
-                ItemCellHelper(navigateToDetailsView: $navigateToDetailsView, showCartView: $showCartView, item: item)
+                ItemCellHelper(showCartView: $showCartView, item: item)
             })
         }
         .listStyle(.plain)
@@ -31,6 +31,9 @@ struct ItemsView: View {
         .navigationTitle(categoriteLevelTwo.name)
         .sheet(isPresented: $showCartView, content: {
             CartView()
+        })
+        .sheet(item: $item, content: {item in
+            DetailsView(showCartView: $showCartView, item: item)
         })
     }
 }
