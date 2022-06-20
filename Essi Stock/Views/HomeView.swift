@@ -44,7 +44,6 @@ struct HomeView: View {
         NavigationView{
             HomeViewBuilderHelper(searchText: $searchText, currentTab: $currentTab, animation: animation, tabs: tabs, content: {
                 PagesSelection()
-                    
                     .onTapGesture {
                         closeKeyboard()
                     }

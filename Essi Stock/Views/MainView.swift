@@ -18,7 +18,7 @@ struct MainView: View {
                 VStack(spacing: 30){
                     HStack{
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Bienvenue sur Essi Pole!")
+                            Text("Bienvenue sur Essi Stock!")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)

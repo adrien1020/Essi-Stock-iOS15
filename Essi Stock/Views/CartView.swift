@@ -35,52 +35,14 @@ struct CartView: View {
             }
         } else {
             VStack{
-                Divider()
-                ForEach(apiServices.itemsCart.indices, id:\.self){ index in
-                    HStack{
-                        AsyncImage(url: URL(string: apiServices.itemsCart[index].image),
-                                   content: { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 120)
-                        },placeholder: {
-                            Color.gray.opacity(0.7)
-                                .frame(width: 120, height: 120)
-                        })
-                        HStack{
-                            VStack{
-                                Text(apiServices.itemsCart[index].marque)
-                                Text(apiServices.itemsCart[index].reference)
-                                Text("\(apiServices.itemsCart[index].desiredQuantity)")
-                            }
-                            Button(action: {
-                                withAnimation(.easeOut){
-                                    var removeIndex = 0
-                                    for i in apiServices.itemsCart.indices{
-                                        if apiServices.itemsCart[i] == apiServices.itemsCart[index]{
-                                            removeIndex = i
-                                            break
-                                        }
-                                    }
-                                    apiServices.itemsCart.remove(at: removeIndex)
-                                }
-                            }, label: {
-                                Text("Supprimer")
-                                    .foregroundColor(.blue)
-                            })
-                        }
-                    }
+                
+                ForEach(apiServices.itemsCart){ item in
+                    Divider()
+                    ItemCartHelper(item: item)
                 }
-                Spacer()
+               Spacer()
             }
-        
-    }
-           
-
-
-
-            
+        }
         
     }
 }

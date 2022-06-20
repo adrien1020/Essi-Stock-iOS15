@@ -15,7 +15,11 @@ struct DetailsView: View {
     
     @State var quantityDesired = 1
     @State var showConfirmationDialogView = false
-    @State var offset: CGFloat = 0.0
+    @State var catIndex = 0
+    @State var catL1Index = 0
+    @State var catL2Index = 0
+    @State var itemIndex = 0
+    
     
     var item: Item
     
@@ -62,11 +66,10 @@ struct DetailsView: View {
                                         .frame(width: 40, height: 40)
                                         .overlay(
                                             Button(action: {
-                                                apiServices.getItemIndex(item: item, completionHandler: { catIndex, catL1Index, catL2Index, itemIndex in
                                                     apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite.toggle()
-                                                })
+                                                
                                             }, label: {
-                                                Image(systemName: item.isFavorite ? "heart.fill": "heart" )
+                                                Image(systemName: apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite ? "heart.fill": "heart" )
                                                     .foregroundColor(Color("Orange Color"))
                                             })
                                         )
@@ -81,7 +84,6 @@ struct DetailsView: View {
                                     StepperHelper(quantity: $quantityDesired)
                                     Spacer()
                                     Button(action: {
-                                        print("DEBUG: offset: \(offset)")
                                         withAnimation{
                                             showConfirmationDialogView.toggle()
                                         }
@@ -109,7 +111,17 @@ struct DetailsView: View {
                     showConfirmationDialogView = false
                 }
             }
-            ConfirmationDialogView(showConfirmationDialogView: $showConfirmationDialogView, quantityDesired: $quantityDesired, showCartView: $showCartView, offset: $offset, item: item)
+            .onAppear(){
+                apiServices.getItemIndex(item: item, completionHandler: { catIndex, catL1Index, catL2Index, itemIndex in
+                    self.catIndex = catIndex
+                    self.catL1Index = catL1Index
+                    self.catL2Index = catL2Index
+                    self.itemIndex = itemIndex
+                })
+            }
+            
+            ConfirmationDialogView(showConfirmationDialogView: $showConfirmationDialogView, quantityDesired: $quantityDesired, showCartView: $showCartView, item: item)
+                .environmentObject(apiServices)
                 .zIndex(1)
         }
     }

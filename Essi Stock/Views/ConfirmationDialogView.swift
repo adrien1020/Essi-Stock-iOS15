@@ -16,10 +16,10 @@ struct ConfirmationDialogView: View {
     @Binding var showConfirmationDialogView : Bool
     @Binding var quantityDesired: Int
     @Binding var showCartView : Bool
-    @Binding var offset: CGFloat
+    @State var offset: CGFloat = 0.0
     
     @State var openOffset: CGFloat = 0
-    
+    //@State var height:CGFloat = 0
     var item: Item
     
     var body: some View {
@@ -49,7 +49,7 @@ struct ConfirmationDialogView: View {
                         }
                         .padding()
                         Spacer()
-                        ItemCellHelper( showCartView:$showCartView , item: item)
+                        ItemConfimationDialogHelper(item: item)
                             .padding()
                         Spacer()
                         Button(action: {
@@ -101,9 +101,19 @@ struct ConfirmationDialogView: View {
                     }
                 })
             }
+            
+            .background(Color.black.opacity(showConfirmationDialogView ? getProgress(height: geometry.size.height/2.5) : 0))
             .ignoresSafeArea()
+            
         }
     }
+    func getProgress(height: CGFloat)->CGFloat{
+        //let progress = offset + openOffset
+        //print("DEBUG: \(((progress/(UIScreen.main.bounds.height/2.5)+100)/1.15))")
+        return 0.85
+    }
+    
+    
     func onChange(state: Double){
         DispatchQueue.main.async {
             self.offset = state
@@ -127,7 +137,7 @@ struct CustomCorner: Shape {
 
 struct ConfirmationDialog_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmationDialogView(showConfirmationDialogView: .constant(true), quantityDesired: .constant(2), showCartView: .constant(false), offset: .constant(0), item: Item(id: 1, marque: "Schneider", reference: "1233", image: "222", price: "1200"))
+        ConfirmationDialogView(showConfirmationDialogView: .constant(true), quantityDesired: .constant(2), showCartView: .constant(false), item: Item(id: 1, marque: "Schneider", reference: "1233", image: "222", price: "1200"))
     }
 }
 

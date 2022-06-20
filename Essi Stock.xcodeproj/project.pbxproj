@@ -12,6 +12,8 @@
 		9F102EF6285A866E0022FBDB /* CameraPreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */; };
 		9F102EF8285A869C0022FBDB /* CameraReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF7285A869C0022FBDB /* CameraReaderView.swift */; };
 		9F102EFA285A8CE50022FBDB /* PhotoButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */; };
+		9F25C174285FD334007E4D88 /* ItemConfimationDialogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */; };
+		9F3AFD3E28603C250069DB14 /* ItemCartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */; };
 		9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F40EDC7285BCECC0053FFDF /* CartView.swift */; };
 		9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653C28591F570092EC26 /* Essi_StockApp.swift */; };
 		9F55653F28591F570092EC26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653E28591F570092EC26 /* ContentView.swift */; };
@@ -42,6 +44,8 @@
 		9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewHelper.swift; sourceTree = "<group>"; };
 		9F102EF7285A869C0022FBDB /* CameraReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReaderView.swift; sourceTree = "<group>"; };
 		9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoButtonHelper.swift; sourceTree = "<group>"; };
+		9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConfimationDialogHelper.swift; sourceTree = "<group>"; };
+		9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCartHelper.swift; sourceTree = "<group>"; };
 		9F40EDC7285BCECC0053FFDF /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		9F55653928591F570092EC26 /* Essi Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Essi Stock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F55653C28591F570092EC26 /* Essi_StockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Essi_StockApp.swift; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 				9F0949FB2859A43000662370 /* SearchBarHelper.swift */,
 				9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */,
 				9F55655B28592B520092EC26 /* ItemCellHelper.swift */,
+				9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */,
+				9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */,
 				9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */,
 				9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */,
 				9FFA80DF285AF21600318C25 /* StepperHelper.swift */,
@@ -248,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F55653F28591F570092EC26 /* ContentView.swift in Sources */,
+				9F25C174285FD334007E4D88 /* ItemConfimationDialogHelper.swift in Sources */,
 				9F88F83B285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift in Sources */,
 				9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */,
 				9F556551285920C40092EC26 /* ItemModel.swift in Sources */,
@@ -270,6 +277,7 @@
 				9F656A40285C4628003C00F7 /* ConfirmationDialogView.swift in Sources */,
 				9F88F83F285A7C1F00D0A8C9 /* HomeView.swift in Sources */,
 				9F88F83D285A7A8B00D0A8C9 /* MainView.swift in Sources */,
+				9F3AFD3E28603C250069DB14 /* ItemCartHelper.swift in Sources */,
 				9F094A002859AD2400662370 /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
