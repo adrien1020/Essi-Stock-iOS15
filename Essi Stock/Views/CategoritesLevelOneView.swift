@@ -20,21 +20,6 @@ struct CategoritesLevelOneView: View {
             }
             .isDetailLink(false)
         }
-        /*
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    //showCartView.toggle()
-                }, label: {
-                    Image(systemName: "cart")
-                        .resizable()
-                        .frame(width: 26, height: 26)
-                        .foregroundColor(Color("Orange Color"))
-                    
-                })
-            }
-        }
-         */
         .listStyle(.plain)
         .navigationTitle(categorite.name)
         .refreshable {

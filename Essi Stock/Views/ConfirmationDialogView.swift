@@ -16,10 +16,10 @@ struct ConfirmationDialogView: View {
     @Binding var showConfirmationDialogView : Bool
     @Binding var quantityDesired: Int
     @Binding var showCartView : Bool
-    @State var offset: CGFloat = 0.0
     
+    @State var offset: CGFloat = 0.0
     @State var openOffset: CGFloat = 0
-    //@State var height:CGFloat = 0
+    
     var item: Item
     
     var body: some View {
@@ -72,7 +72,6 @@ struct ConfirmationDialogView: View {
                 .frame(width: width, height: height+100, alignment: .bottom)
                 .offset(y: openOffset+100)
                 .offset(y: offset <= -100 ? -100 : offset)
-                
                 .gesture(DragGesture().updating($gestureOffset, body: {value, state, transaction in
                     state = value.translation.height
                     onChange(state: state)
@@ -101,23 +100,27 @@ struct ConfirmationDialogView: View {
                     }
                 })
             }
-            
             .background(Color.black.opacity(showConfirmationDialogView ? getProgress(height: geometry.size.height/2.5) : 0))
             .ignoresSafeArea()
-            
         }
     }
     func getProgress(height: CGFloat)->CGFloat{
-        //let progress = offset + openOffset
-        //print("DEBUG: \(((progress/(UIScreen.main.bounds.height/2.5)+100)/1.15))")
-        return 0.85
+        
+        let maxOpacity = 0.85
+        let maxHeight = height + 100
+        
+        if offset <= -100{
+            return maxOpacity
+        }else{
+            let progress = ((height - offset) * maxOpacity) / maxHeight
+            //print("DEBUG Progress opacity: \(progress)")
+            return progress
+        }
     }
-    
-    
     func onChange(state: Double){
         DispatchQueue.main.async {
             self.offset = state
-            print("DEBUG offset: \(offset)")
+            //print("DEBUG offset: \(offset)")
         }
     }
 }

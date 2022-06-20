@@ -43,7 +43,6 @@ struct CartView: View {
                Spacer()
             }
         }
-        
     }
 }
 
