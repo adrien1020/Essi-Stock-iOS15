@@ -138,10 +138,10 @@ struct CustomCorner: Shape {
     }
 }
 
-
+/*
 struct ConfirmationDialog_Previews: PreviewProvider {
     static var previews: some View {
         ConfirmationDialogView(showConfirmationDialogView: .constant(true), quantityDesired: .constant(2), showCartView: .constant(false), item: Item(id: 1, marque: "Schneider", reference: "1233", image: "222", price: "1200"))
     }
 }
-
+*/

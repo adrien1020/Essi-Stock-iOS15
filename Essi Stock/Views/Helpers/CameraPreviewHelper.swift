@@ -20,6 +20,7 @@ struct CameraPreview: UIViewRepresentable{
     @Binding var showAlert: Bool
     let captureSession = AVCaptureSession()
     
+    
     func makeUIView(context: Context) -> some UIView {
         
         var previewLayer = AVCaptureVideoPreviewLayer()
@@ -120,7 +121,7 @@ struct CameraPreview: UIViewRepresentable{
             let image = UIImage(data: imageData)
             print(image!)
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-               session!.stopRunning()
+            session!.stopRunning()
         }
     }
 }

@@ -47,10 +47,12 @@ struct ItemConfimationDialogHelper: View {
             Spacer()
         }
 }
+}
 
+/*
 struct ItemConfimationDialogHelper_Previews: PreviewProvider {
     static var previews: some View {
         ItemConfimationDialogHelper(item: Item(id: 1, marque: "Schneider", reference: "1222", image: "iddd", price: "12.4"))
     }
 }
-}
+*/

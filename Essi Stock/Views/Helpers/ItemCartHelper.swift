@@ -72,8 +72,10 @@ struct ItemCartHelper: View {
     }
 }
 
+/*
 struct ItemCartHelper_Previews: PreviewProvider {
     static var previews: some View {
         ItemCartHelper(item: Item(id: 1, marque: "Schneider", reference: "1344", image: "AA", price: "122222"))
     }
 }
+*/

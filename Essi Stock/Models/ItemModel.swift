@@ -59,15 +59,23 @@ struct CategoritesLevelTwo: Hashable,Codable, Identifiable {
 // MARK: - Item
 struct Item: Hashable, Identifiable, Codable{
     let id: Int
-    var marque: String
+    let designation: String
+    let marque: String
     let reference: String
+    let JDE: String
     let image: String
+    let description: String
     let price: String
+    let quantity: Int
+    let createdAt: String
+    let updatedAt: String
     var isFavorite = false
     var desiredQuantity = 1
     
     enum CodingKeys: String, CodingKey {
-             case id, marque, reference, image, price
+             case id, designation, marque, reference, JDE, image, description, price, quantity
+            case createdAt = "created_at"
+            case updatedAt = "updated_at"
              
      }
 }

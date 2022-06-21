@@ -46,15 +46,19 @@ class APIServices: ObservableObject{
     
     func addToCart(item: Item, quantityDesired: Int){
         let id = item.id
+        let designation = item.designation
         let marque = item.marque
         let reference = item.reference
+        let JDE = item.JDE
         let image = item.image
+        let description = item.description
         let price = item.price
+        let quantity  = item.quantity
+        let createdAt = item.createdAt
+        let uddatedAt = item.updatedAt
         let isFavorite = item.isFavorite
-        let desiredQuantity = quantityDesired
         
-        
-        let newItem = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: desiredQuantity)
+        let newItem = Item(id: id, designation: designation, marque: marque, reference: reference, JDE: JDE, image: image, description: description, price: price, quantity: quantity, createdAt: createdAt, updatedAt: uddatedAt, isFavorite: isFavorite, desiredQuantity: quantityDesired)
         
         //Check if newItem exist in itemsCart array
         var isExist = false
@@ -69,7 +73,8 @@ class APIServices: ObservableObject{
         //if newItem exist in itemCart array, quantity desired will be updated
         if isExist{
             print("DEBUG: Update item in cart")
-            itemsCart[index] = Item(id: id, marque: marque, reference: reference, image: image, price: price, isFavorite: isFavorite, desiredQuantity: itemsCart[index].desiredQuantity + quantityDesired)
+            
+            itemsCart[index] = Item(id: id, designation: designation, marque: marque, reference: reference, JDE: JDE, image: image, description: description, price: price, quantity: quantity, createdAt: createdAt, updatedAt: uddatedAt, isFavorite: isFavorite, desiredQuantity: itemsCart[index].desiredQuantity + quantityDesired)
             
             //if new item doesn't exist in itemCart, it will be added
         } else {
