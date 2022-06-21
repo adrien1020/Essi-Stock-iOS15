@@ -16,6 +16,7 @@ enum Camera: Error{
 
 struct CameraPreview: UIViewRepresentable{
     
+    @Binding var takePictureIsPressed: Bool
     @Binding var showAlert: Bool
     let captureSession = AVCaptureSession()
     
@@ -49,7 +50,11 @@ struct CameraPreview: UIViewRepresentable{
         return view
     }
     
-    func updateUIView(_ uiView: UIViewType, context: Context) {}
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        if takePictureIsPressed{
+        context.coordinator.takePicture()
+        }
+    }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -79,7 +84,7 @@ struct CameraPreview: UIViewRepresentable{
             if  session.canAddInput(videoInput) && session.canAddOutput(photoOutput){
                 session.addInput(videoInput)
                 session.addOutput(photoOutput)
-            }else{return}
+            } else {return}
         }
         
         // MARK: - Detect barcode, QRcode
@@ -89,7 +94,12 @@ struct CameraPreview: UIViewRepresentable{
                 session!.addOutput(metadataOutput)
                 metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
                 metadataOutput.metadataObjectTypes = [.qr, .interleaved2of5, .dataMatrix, .code128, .code39, .code93, .ean13]
-            }else{return}
+            } else {return}
+        }
+        
+        func takePicture(){
+            let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+                photoOutput.capturePhoto(with: settings, delegate: self)
         }
         
         // MARK: - Decoding barcode, QRcode
@@ -104,5 +114,13 @@ struct CameraPreview: UIViewRepresentable{
             }
         }
         
+        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+            guard let imageData = photo.fileDataRepresentation()
+            else {return}
+            let image = UIImage(data: imageData)
+            print(image!)
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+               session!.stopRunning()
+        }
     }
 }

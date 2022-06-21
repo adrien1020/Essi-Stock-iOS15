@@ -11,14 +11,15 @@ struct ConfirmationDialogView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @GestureState var gestureOffset = 0.0
+    @GestureState private var gestureOffset = 0.0
     
     @Binding var showConfirmationDialogView : Bool
     @Binding var quantityDesired: Int
     @Binding var showCartView : Bool
     
-    @State var offset: CGFloat = 0.0
-    @State var openOffset: CGFloat = 0
+    @State private var offset: CGFloat = 0.0
+    @State private var openOffset: CGFloat = 0
+    private let exceedHeight: CGFloat = 50
     
     var item: Item
     
@@ -66,27 +67,27 @@ struct ConfirmationDialogView: View {
                                 .background(Color("Orange Color"))
                                 .cornerRadius(15)
                         })
-                        .padding(.bottom, 140)
+                        .padding(.bottom, exceedHeight+40)
                     }
                 }
-                .frame(width: width, height: height+100, alignment: .bottom)
-                .offset(y: openOffset+100)
-                .offset(y: offset <= -100 ? -100 : offset)
+                .frame(width: width, height: height+exceedHeight, alignment: .bottom)
+                .offset(y: openOffset+exceedHeight)
+                .offset(y: offset <= -exceedHeight ? -exceedHeight : offset)
                 .gesture(DragGesture().updating($gestureOffset, body: {value, state, transaction in
                     state = value.translation.height
                     onChange(state: state)
                 }).onEnded({ _ in
                     withAnimation{
-                        if offset <= -100 || offset <= 100{
+                        if offset <= -exceedHeight || offset <= exceedHeight{
                             offset = 0
                         } else {
-                            offset = height+100
+                            offset = height+exceedHeight
                             showConfirmationDialogView = false
                         }
                     }
                 }))
                 .onAppear{
-                    openOffset = height+100
+                    openOffset = height+exceedHeight
                 }
                 .onChange(of: showConfirmationDialogView, perform: {_ in
                     withAnimation{
@@ -94,7 +95,7 @@ struct ConfirmationDialogView: View {
                             openOffset = 0
                             offset = 0
                         }else {
-                            openOffset = height+100
+                            openOffset = height+exceedHeight
                             offset = 0
                         }
                     }
@@ -107,9 +108,9 @@ struct ConfirmationDialogView: View {
     func getProgress(height: CGFloat)->CGFloat{
         
         let maxOpacity = 0.85
-        let maxHeight = height + 100
+        let maxHeight = height + exceedHeight
         
-        if offset <= -100{
+        if offset <= -exceedHeight{
             return maxOpacity
         }else{
             let progress = ((height - offset) * maxOpacity) / maxHeight

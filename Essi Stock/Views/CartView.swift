@@ -35,7 +35,6 @@ struct CartView: View {
             }
         } else {
             VStack{
-                
                 ForEach(apiServices.itemsCart){ item in
                     Divider()
                     ItemCartHelper(item: item)

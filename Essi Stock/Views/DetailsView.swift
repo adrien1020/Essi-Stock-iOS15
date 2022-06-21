@@ -20,7 +20,6 @@ struct DetailsView: View {
     @State var catL2Index = 0
     @State var itemIndex = 0
     
-    
     var item: Item
     
     var body: some View {
@@ -106,11 +105,6 @@ struct DetailsView: View {
                     }
                 }
             }
-            .onTapGesture {
-                withAnimation{
-                    showConfirmationDialogView = false
-                }
-            }
             .onAppear(){
                 apiServices.getItemIndex(item: item, completionHandler: { catIndex, catL1Index, catL2Index, itemIndex in
                     self.catIndex = catIndex
@@ -119,10 +113,7 @@ struct DetailsView: View {
                     self.itemIndex = itemIndex
                 })
             }
-            
             ConfirmationDialogView(showConfirmationDialogView: $showConfirmationDialogView, quantityDesired: $quantityDesired, showCartView: $showCartView, item: item)
-                .environmentObject(apiServices)
-                .zIndex(1)
         }
     }
 }

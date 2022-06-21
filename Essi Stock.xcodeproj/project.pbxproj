@@ -13,6 +13,7 @@
 		9F102EF8285A869C0022FBDB /* CameraReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF7285A869C0022FBDB /* CameraReaderView.swift */; };
 		9F102EFA285A8CE50022FBDB /* PhotoButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */; };
 		9F25C174285FD334007E4D88 /* ItemConfimationDialogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */; };
+		9F2DBE502861C332006655A2 /* StockClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DBE4F2861C332006655A2 /* StockClassifier.mlmodel */; };
 		9F3AFD3E28603C250069DB14 /* ItemCartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */; };
 		9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F40EDC7285BCECC0053FFDF /* CartView.swift */; };
 		9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653C28591F570092EC26 /* Essi_StockApp.swift */; };
@@ -45,6 +46,7 @@
 		9F102EF7285A869C0022FBDB /* CameraReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReaderView.swift; sourceTree = "<group>"; };
 		9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoButtonHelper.swift; sourceTree = "<group>"; };
 		9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConfimationDialogHelper.swift; sourceTree = "<group>"; };
+		9F2DBE4F2861C332006655A2 /* StockClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StockClassifier.mlmodel; sourceTree = "<group>"; };
 		9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCartHelper.swift; sourceTree = "<group>"; };
 		9F40EDC7285BCECC0053FFDF /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		9F55653928591F570092EC26 /* Essi Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Essi Stock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 		9F55654A28591FCE0092EC26 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F2DBE4F2861C332006655A2 /* StockClassifier.mlmodel */,
 				9F55655D285937880092EC26 /* dataSource.json */,
 				9F556550285920C40092EC26 /* ItemModel.swift */,
 				9F88F838285A79CF00D0A8C9 /* TabModel.swift */,
@@ -279,6 +282,7 @@
 				9F88F83D285A7A8B00D0A8C9 /* MainView.swift in Sources */,
 				9F3AFD3E28603C250069DB14 /* ItemCartHelper.swift in Sources */,
 				9F094A002859AD2400662370 /* SearchView.swift in Sources */,
+				9F2DBE502861C332006655A2 /* StockClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

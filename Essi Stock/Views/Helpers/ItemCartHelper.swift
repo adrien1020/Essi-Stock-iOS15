@@ -43,33 +43,31 @@ struct ItemCartHelper: View {
                     .foregroundColor(.black.opacity(0.9))
                     .multilineTextAlignment(.center)
             }
-            HStack{
-                Spacer()
-                Text("qte:")
-                    .font(.system(size: 16))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.black.opacity(0.4))
-                    .multilineTextAlignment(.center)
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.gray.opacity(0.5),lineWidth: 1)
-                    .frame(width:25, height: 25)
-                    .overlay(
-                        TextField(text: $changeQuantity , label: {
-                        }).multilineTextAlignment(.center)
-                            .keyboardType(.decimalPad)
-                        
-                            .onSubmit {
-                                print("Submit")
-                            }
-                    )
-            }
+                HStack{
+                    Spacer()
+                    Text("qte:")
+                        .font(.system(size: 16))
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black.opacity(0.4))
+                        .multilineTextAlignment(.center)
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray.opacity(0.5),lineWidth: 1)
+                        .frame(width:25, height: 25)
+                        .overlay(
+                            TextField(text: $changeQuantity , label: {
+                            }).multilineTextAlignment(.center)
+                                .keyboardType(.decimalPad)
+                            
+                                .onSubmit {
+                                    print("Submit")
+                                }
+                        )
+                }
+            
         }
         .padding()
         .onAppear{
             changeQuantity = String(item.desiredQuantity)
-        }
-        .onTapGesture {
-            closeKeyboard()
         }
     }
 }

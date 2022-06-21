@@ -12,10 +12,11 @@ struct CameraReaderView: View {
     @Binding var showCameraReader :Bool
     
     @State var showAlert = false
+    @State var takePictureIsPressed = false
     
     var body: some View {
         ZStack{
-            CameraPreview(showAlert: $showAlert)
+            CameraPreview(takePictureIsPressed: $takePictureIsPressed, showAlert: $showAlert)
                 .ignoresSafeArea()
             VStack{
                 Text("Cherchez un code à scanner ou prennez une photo pour rechercher l'article")
@@ -26,7 +27,7 @@ struct CameraReaderView: View {
                     .padding(.vertical, 50)
                     .padding(.horizontal, 20)
                 Spacer()
-                PhotoButtonHelper(showCameraReader: $showCameraReader)
+                PhotoButtonHelper(takePictureIsPressed: $takePictureIsPressed)
             }
         }
         .alert("Your device does not support scanning a code from an item. Please use a device with a camera.", isPresented: $showAlert) {
