@@ -10,11 +10,12 @@ import SwiftUI
 struct SearchBarHelper: View {
     
     @EnvironmentObject var apiServices: APIServices
-
+    @EnvironmentObject var tabStateVM: TabStateViewModel
+    
     @Binding var searchText : String
     
     @State private var showCartView = false
-    @State var showCameraReaderView = false
+    @State private var showCameraReaderView = false
     @State private var isEditingChanged = false
     
     var body: some View {

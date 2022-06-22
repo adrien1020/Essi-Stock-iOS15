@@ -13,9 +13,11 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @StateObject var apiServices =  APIServices()
-    @StateObject var tabState = TabState()
+    @StateObject var tabStateVM = TabStateViewModel()
     
-    @State var searchText = ""
+    @State private var searchText = ""
+    
+    var iconName = ["house.fill","person.fill","magnifyingglass"]
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -23,44 +25,43 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0){
-            TabView(selection: $tabState.selectedTab) {
+            TabView(selection: $tabStateVM.selectedTab) {
                 HomeView()
-                    .environmentObject(tabState)
+                    .environmentObject(tabStateVM)
                     .onAppear(perform: {
-                        tabState.lastSelectedTab = TabState.Tab.first
+                        tabStateVM.lastSelectedTab = Tab.first
                     })
-                    .tag(TabState.Tab.first)
-                CategoritesView()
-                    .environmentObject(tabState)
-                    .tag(TabState.Tab.second)
+                    .tag(Tab.first)
+                PersonalView()
+                    .environmentObject(tabStateVM)
+                    .onAppear(perform: {
+                        tabStateVM.lastSelectedTab = Tab.second
+                    })
+                    .tag(Tab.second)
                 SearchView()
                     .onAppear(perform: {
-                        tabState.lastSelectedTab = TabState.Tab.third
+                        tabStateVM.lastSelectedTab = Tab.third
                     })
-                    .tag(TabState.Tab.third)
+                    .tag(Tab.third)
             }
-            .onReceive(tabState.$selectedTab) { selection in
-                if selection == tabState.lastSelectedTab {
-                    //tabState.showTabRoots[selection.rawValue] = false
-                    for i in tabState.iconName.indices{
-                        if selection.rawValue == tabState.iconName[i]{
-                            tabState.showTabRoots[i] = false
-                        }
+            .onReceive(tabStateVM.$selectedTab) { selection in
+                if selection == tabStateVM.lastSelectedTab {
+                    tabStateVM.showTabRoots[selection.rawValue] = false
                     }
                 }
             }
             .environmentObject(apiServices)
             Divider()
             HStack{
-                ForEach(tabState.iconName.indices, id:\.self) { index in
+                ForEach(iconName.indices, id:\.self) { index in
                     Spacer()
-                    TabButton(index: index)
-                        .environmentObject(tabState)
+                    TabButton(iconName: iconName[index], index: index)
+                        .environmentObject(tabStateVM)
                     Spacer()
                 }
             }
             .background(colorScheme == .dark ? Color.black : Color.white)
-        }
+        
         .ignoresSafeArea(.keyboard)
         .onAppear(){
             fetchData(apiServices: apiServices)
@@ -69,13 +70,14 @@ struct ContentView: View {
 }
 
 struct TabButton: View {
-    @EnvironmentObject var tabState: TabState
-
+    
+    @EnvironmentObject var tabState: TabStateViewModel
+    
+    var iconName: String
     var index: Int
     
     var body: some View {
         Button(action: {
-            
             switch index{
             case 0:
                 tabState.selectedTab = .first
@@ -88,19 +90,13 @@ struct TabButton: View {
             }
             closeKeyboard()
         }, label: {
-            Image(systemName: tabState.iconName[index])
+            Image(systemName: iconName)
                 .font(.system(size: 25))
-                .foregroundColor(tabState.selectedTab.rawValue == tabState.iconName[index] ? Color("Orange Color") : .black.opacity(0.4))
+                .foregroundColor(tabState.selectedTab.rawValue == index ? Color("Orange Color") : .black.opacity(0.4))
                 .padding()
         })
     }
 }
-
-extension View{
-    func closeKeyboard() {
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
     
     func fetchData(apiServices: APIServices){
         Task{
@@ -116,6 +112,12 @@ extension View{
             await generator.notificationOccurred(.success)
         }
     }
+
+extension View{
+    func closeKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 
 
@@ -124,3 +126,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+

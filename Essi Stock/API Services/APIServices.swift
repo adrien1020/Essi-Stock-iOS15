@@ -30,6 +30,20 @@ class APIServices: ObservableObject{
         }
     }
     
+    
+    func getAllIndex(completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
+        for catIndex in items.indices{
+            for catL1Index in items[catIndex].categoritesLevelOne.indices{
+                for catL2Index in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices{
+                    for itemIndex in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices{
+                        completionHandler(catIndex, catL1Index, catL2Index, itemIndex)
+                    }
+                }
+            }
+        }
+        
+    }
+    
     func getItemIndex(item:Item, completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
         for catIndex in items.indices{
             for catL1Index in items[catIndex].categoritesLevelOne.indices{
@@ -73,9 +87,7 @@ class APIServices: ObservableObject{
         //if newItem exist in itemCart array, quantity desired will be updated
         if isExist{
             print("DEBUG: Update item in cart")
-            
             itemsCart[index] = Item(id: id, designation: designation, marque: marque, reference: reference, JDE: JDE, image: image, description: description, price: price, quantity: quantity, createdAt: createdAt, updatedAt: uddatedAt, isFavorite: isFavorite, desiredQuantity: itemsCart[index].desiredQuantity + quantityDesired)
-            
             //if new item doesn't exist in itemCart, it will be added
         } else {
             print("DEBUG: Add new item in cart")

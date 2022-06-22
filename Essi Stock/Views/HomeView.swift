@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var apiServices: APIServices
-    @EnvironmentObject var tabState: TabState
+    @EnvironmentObject var tabState: TabStateViewModel
     @State var searchText = ""
     @State private var currentTab = TabModel(name: "Principal", icon: "folder")
     
