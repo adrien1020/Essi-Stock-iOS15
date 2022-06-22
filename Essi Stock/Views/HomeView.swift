@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var apiServices: APIServices
-    
+    @EnvironmentObject var tabState: TabState
     @State var searchText = ""
     @State private var currentTab = TabModel(name: "Principal", icon: "folder")
     
@@ -64,6 +64,7 @@ struct HomeView: View {
         case .init(name: "Catégorites", icon: "circle.grid.2x2"):
             CategoritesView()
                 .environmentObject(apiServices)
+                .environmentObject(tabState)
         default:
             Text("La vue n'éxiste pas")
         }

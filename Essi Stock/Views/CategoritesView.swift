@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoritesView: View {
     
     @EnvironmentObject var apiServices : APIServices
-    
+    @EnvironmentObject var tabState: TabState
     @State var searchText = ""
     
     let columns: [GridItem] = [GridItem(.adaptive(minimum:150), spacing: 4)]
@@ -19,7 +19,7 @@ struct CategoritesView: View {
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 12){
                     ForEach(apiServices.items){ categorite in
-                        NavigationLink(destination: CategoritesLevelOneView(categorite: categorite).environmentObject(apiServices)){
+                        NavigationLink(destination: CategoritesLevelOneView(categorite: categorite),isActive: $tabState.showTabRoots[0]){
                             VStack{
                                 AsyncImage(url: URL(string: categorite.icon),
                                            content: { image in
