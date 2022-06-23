@@ -11,32 +11,27 @@ struct FavoritesView: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    @State var catIndex = 0
-    @State var catL1Index = 0
-    @State var catL2Index = 0
+    @State var item : Item?
     
-    var filteredFavoritesItems: [Item] {
-        apiServices.getAllIndex(completionHandler: {catIndex, catL1Index, catL2Index, itemIndex in
-            DispatchQueue.main.async {
-                self.catIndex = catIndex
-                self.catL1Index = catL1Index
-                self.catL2Index = catL2Index
-            }
-        })
-        return apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.filter{
-            item in
-            item.isFavorite
-        }
-    }
+    @State private var showCartView = false
     
     var body: some View {
-        VStack{
-            if !apiServices.items.isEmpty{
-                List(filteredFavoritesItems){item in
-                    Text(item.marque)
-                }
-                Spacer()
-            } else {
+        if !apiServices.isFavorites.isEmpty{
+            List(apiServices.isFavorites){item in
+                Button(action: {
+                }, label: {
+                    ItemCellHelper(item: item)
+                        .onTapGesture {
+                            self.item = item
+                        }
+                })
+            }
+            .listStyle(.plain)
+            .sheet(item: $item, content: {item in
+                DetailsView(showCartView: $showCartView, item: item)
+            })
+        }else{
+            VStack{
                 Spacer()
                 VStack(spacing: 20){
                     Image(systemName: "heart.fill")
@@ -53,6 +48,8 @@ struct FavoritesView: View {
                 }
                 .padding(.horizontal, 50)
                 Spacer()
+                
+                
             }
         }
     }

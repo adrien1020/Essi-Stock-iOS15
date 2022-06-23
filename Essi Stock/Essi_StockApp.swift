@@ -23,7 +23,7 @@ struct Essi_StockApp: App {
                         print("DEBUG: Scene is in background")
                     case .inactive:
                         print("DEBUG: Scene is inactive")
-                    default: print("DEBUG: Scene is unknow")
+                    default: print("DEBUG: unknow")
                     }
                 })
         }

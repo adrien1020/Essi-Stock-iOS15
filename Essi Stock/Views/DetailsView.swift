@@ -72,6 +72,10 @@ struct DetailsView: View {
                                             Button(action: {
                                                 apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite.toggle()
                                                 
+                                                let item = apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex]
+                                                apiServices.addToFavorites(item: item)
+                                                
+                                                
                                             }, label: {
                                                 Image(systemName: apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite ? "heart.fill": "heart" )
                                                     .foregroundColor(Color("Orange Color"))

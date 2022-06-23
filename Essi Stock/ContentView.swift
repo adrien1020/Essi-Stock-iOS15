@@ -47,6 +47,7 @@ struct ContentView: View {
             .onReceive(tabStateVM.$selectedTab) { selection in
                 if selection == tabStateVM.lastSelectedTab {
                     tabStateVM.showTabRoots[selection.rawValue] = false
+                    print(tabStateVM.showTabRoots)
                     }
                 }
             }

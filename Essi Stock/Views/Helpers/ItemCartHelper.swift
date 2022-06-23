@@ -45,6 +45,7 @@ struct ItemCartHelper: View {
             }
                 HStack{
                     Spacer()
+                    VStack{
                     Text("qte:")
                         .font(.system(size: 16))
                         .fontWeight(.semibold)
@@ -57,13 +58,12 @@ struct ItemCartHelper: View {
                             TextField(text: $changeQuantity , label: {
                             }).multilineTextAlignment(.center)
                                 .keyboardType(.decimalPad)
-                            
                                 .onSubmit {
                                     print("Submit")
                                 }
                         )
                 }
-            
+                }
         }
         .padding()
         .onAppear{

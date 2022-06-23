@@ -11,7 +11,7 @@ struct ItemsView: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    @State var showCartView = false
+    @State private var showCartView = false
     
     var categoriteLevelTwo: CategoritesLevelTwo
     
@@ -21,7 +21,7 @@ struct ItemsView: View {
             Button(action: {
                 self.item = item
             }, label: {
-                ItemCellHelper(showCartView: $showCartView, item: item)
+                ItemCellHelper(item: item)
             })
         }
         .listStyle(.plain)

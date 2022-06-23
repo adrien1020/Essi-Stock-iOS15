@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum RequestError: Error {
     case invalidURL
@@ -30,18 +31,20 @@ class APIServices: ObservableObject{
         }
     }
     
-    
-    func getAllIndex(completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
-        for catIndex in items.indices{
-            for catL1Index in items[catIndex].categoritesLevelOne.indices{
-                for catL2Index in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices{
-                    for itemIndex in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices{
-                        completionHandler(catIndex, catL1Index, catL2Index, itemIndex)
+    func addToFavorites(item:Item){
+        var removeIndex = 0
+        withAnimation(.easeInOut){
+            if item.isFavorite{
+                isFavorites.append(item)
+            }else {
+                for i in isFavorites.indices{
+                    if isFavorites[i].id == item.id{
+                        removeIndex = i
                     }
                 }
+                isFavorites.remove(at: removeIndex)
             }
         }
-        
     }
     
     func getItemIndex(item:Item, completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
