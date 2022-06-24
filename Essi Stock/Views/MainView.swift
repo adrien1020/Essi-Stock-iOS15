@@ -50,11 +50,8 @@ struct MainView: View {
                         .padding(.horizontal)
                         ScrollView(.horizontal){
                             HStack(spacing:30){
-                                ForEach(apiServices.items.indices, id:\.self){catIndex in
-                                    ForEach(apiServices.items[catIndex].categoritesLevelOne.indices, id:\.self){catL1Index in
-                                        ForEach(apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices, id:\.self){catL2Index in
-                                            ForEach(apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices, id:\.self){itemIndex in
-                                                AsyncImage(url: URL(string: apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].image),
+                                ForEach(apiServices.recentes){item in
+                                                AsyncImage(url: URL(string: item.image),
                                                            content: { image in
                                                     image
                                                         .resizable()
@@ -67,9 +64,9 @@ struct MainView: View {
                                                         .cornerRadius(20)
                                                 })
                                                 
-                                            }
-                                        }
-                                    }
+                                             
+                                        
+                                    
                                 }
                             }.padding(.horizontal)
                             Divider()
@@ -140,7 +137,24 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
+    
+    static let apiServices = APIServices()
     static var previews: some View {
         MainView()
+            .environmentObject(apiServices)
+            .onAppear{
+                Task{
+                    do {
+                        print("DEBUG: Download data")
+                        try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+                    } catch RequestError.invalidURL{
+                        print("DEBUG: Invalid URL")
+                    } catch RequestError.missingData{
+                        print("DEBUG: Missing data")
+                    }
+
+                }
+                
+            }
     }
 }

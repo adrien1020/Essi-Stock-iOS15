@@ -19,6 +19,7 @@ class APIServices: ObservableObject{
     @Published var items: [ItemModel] = []
     @Published var isFavorites : [Item] = []
     @Published var itemsCart : [Item] = []
+    @Published var recentes : [Item] = []
     
     func fetchData(urlString: String) async throws {
         guard let url = URL(string: urlString) else {throw RequestError.invalidURL}
@@ -30,6 +31,29 @@ class APIServices: ObservableObject{
             self.items = jsonResponse
         }
     }
+    
+    func addToRecentes(item:Item){
+        var exist = false
+        
+        for i in recentes.indices{
+            if item.id == recentes[i].id{
+                print("Exist")
+                exist = true
+            }
+        }
+        if !exist{
+            self.recentes.append(item)
+            if self.recentes.count == 10{
+                self.recentes.remove(at: 0)
+            }
+        
+            
+            
+        }
+    }
+    
+    
+    
     
     func addToFavorites(item:Item){
         var removeIndex = 0

@@ -116,6 +116,7 @@ struct DetailsView: View {
                 }
             }
             .onAppear(){
+                apiServices.addToRecentes(item: item)
                 apiServices.getItemIndex(item: item, completionHandler: { catIndex, catL1Index, catL2Index, itemIndex in
                     self.catIndex = catIndex
                     self.catL1Index = catL1Index

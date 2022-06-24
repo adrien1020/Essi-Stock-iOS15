@@ -70,10 +70,25 @@ struct HomeView: View {
     }
 }
 
-/*
- struct HomeView_Previews: PreviewProvider {
- static var previews: some View {
- HomeView()
- }
- }
- */
+
+struct HomeView_Previews: PreviewProvider {
+    static let apiServices = APIServices()
+    static var previews: some View {
+        HomeView()
+            .environmentObject(apiServices)
+            .onAppear{
+                Task{
+                    do {
+                        print("DEBUG: Download data")
+                        try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+                    } catch RequestError.invalidURL{
+                        print("DEBUG: Invalid URL")
+                    } catch RequestError.missingData{
+                        print("DEBUG: Missing data")
+                    }
+                }
+                
+            }
+    }
+}
+

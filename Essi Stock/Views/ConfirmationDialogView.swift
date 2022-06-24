@@ -19,8 +19,8 @@ struct ConfirmationDialogView: View {
     
     @State private var offset: CGFloat = 0.0
     @State private var openOffset: CGFloat = 0
-    private let exceedHeight: CGFloat = 50
     
+    private let exceedHeight: CGFloat = 50
     var item: Item
     
     var body: some View {
@@ -43,7 +43,7 @@ struct ConfirmationDialogView: View {
                                 .padding(.top, 8)
                             Spacer()
                         }
-                        //Checkmark icon + Text
+                        //Checkmark icon + Text add to cart
                         HStack{
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
@@ -59,7 +59,7 @@ struct ConfirmationDialogView: View {
                         ItemConfimationDialogHelper(item: item)
                             .padding(.horizontal, 4)
                         Spacer()
-                        //Add to cart button
+                        //Button add to cart
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
@@ -112,6 +112,8 @@ struct ConfirmationDialogView: View {
             .ignoresSafeArea()
         }
     }
+    
+    //Get opacity value for the background
     func getProgress(height: CGFloat)->CGFloat{
         
         let maxOpacity = 0.85
@@ -133,7 +135,7 @@ struct ConfirmationDialogView: View {
     }
 }
 
-
+//Custom corner for view clipshape
 struct CustomCorner: Shape {
     
     var corners : UIRectCorner

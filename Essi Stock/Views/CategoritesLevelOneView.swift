@@ -28,14 +28,33 @@ struct CategoritesLevelOneView: View {
     }
 }
 
-/*
- struct CategoritesLevelOneView_Previews: PreviewProvider {
- @State static var modelData = APIServices()
- static var previews: some View {
- CategoritesLevelOneView(categorite: $modelData.items[0])
- .environmentObject(modelData)
- }
- }
- */
+
+struct CategoritesLevelOneView_Previews: PreviewProvider {
+    static let apiServices = APIServices()
+    static var previews: some View {
+        
+        VStack{
+            if !apiServices.items.isEmpty{
+                CategoritesLevelOneView(categorite: apiServices.items[0])
+                    .environmentObject(apiServices)
+            }
+        }
+        .onAppear{
+            Task{
+                do {
+                    print("DEBUG: Download data")
+                    try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+                } catch RequestError.invalidURL{
+                    print("DEBUG: Invalid URL")
+                } catch RequestError.missingData{
+                    print("DEBUG: Missing data")
+                }
+            }
+            
+        }
+        
+    }
+}
+
 
 

@@ -55,7 +55,25 @@ struct CategoritesView: View {
 
 
 struct CategoritesView_Previews: PreviewProvider {
+    static let apiServices = APIServices()
+    static let tabStateVM = TabStateViewModel()
     static var previews: some View {
         CategoritesView()
+            .environmentObject(apiServices)
+            .environmentObject(tabStateVM)
+            .onAppear{
+                Task{
+                    do {
+                        print("DEBUG: Download data")
+                        try await apiServices.fetchData(urlString: "http://127.0.0.1:8000/api/")
+                    } catch RequestError.invalidURL{
+                        print("DEBUG: Invalid URL")
+                    } catch RequestError.missingData{
+                        print("DEBUG: Missing data")
+                    }
+                }
+                
+            }
+            
     }
 }

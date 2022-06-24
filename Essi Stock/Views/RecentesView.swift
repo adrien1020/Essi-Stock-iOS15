@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct RecentesView: View {
+    @EnvironmentObject var apiServices : APIServices
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(apiServices.recentes){recentItem in
+            ItemConfimationDialogHelper(item: recentItem)
+            
+        }
+        .listStyle(.plain)
     }
 }
 
