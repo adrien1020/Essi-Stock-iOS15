@@ -129,7 +129,12 @@ struct MainView: View {
                     }
                     .padding(.horizontal)
                 }
+                .refreshable{
+                    
+                    print(10)
+                }
             }
+            
         }
     }
 }

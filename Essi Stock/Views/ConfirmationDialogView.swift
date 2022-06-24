@@ -33,7 +33,8 @@ struct ConfirmationDialogView: View {
                     Color.white
                         .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 30))
                         .shadow(color: Color.black, radius: 5, x: 0, y: 5)
-                    VStack{
+                    VStack(spacing: 10){
+                        //Capsule
                         HStack{
                             Spacer()
                             Capsule()
@@ -42,17 +43,23 @@ struct ConfirmationDialogView: View {
                                 .padding(.top, 8)
                             Spacer()
                         }
+                        //Checkmark icon + Text
                         HStack{
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
-                            Text("Ajouté au panier").foregroundColor(.black)
+                            Text("Ajouté au panier")
+                                .font(.callout.bold())
+                                .foregroundColor(.black)
                             Spacer()
                         }
-                        .padding()
+                        .padding(.leading, 10)
+                        .padding(.top, 10)
                         Spacer()
+                        // Item cell
                         ItemConfimationDialogHelper(item: item)
-                            .padding()
+                            .padding(.horizontal, 4)
                         Spacer()
+                        //Add to cart button
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {

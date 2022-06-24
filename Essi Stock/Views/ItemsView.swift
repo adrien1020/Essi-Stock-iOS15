@@ -22,7 +22,12 @@ struct ItemsView: View {
                 self.item = item
             }, label: {
                 ItemCellHelper(item: item)
+                    
             })
+            .listRowInsets(EdgeInsets(top: 4, // HERE
+                                      leading: 4,
+                                      bottom: 4,
+                                      trailing: 6))
         }
         .listStyle(.plain)
         .refreshable {

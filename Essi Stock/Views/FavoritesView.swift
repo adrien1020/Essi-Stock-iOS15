@@ -13,20 +13,27 @@ struct FavoritesView: View {
     
     @State var item : Item?
     
-    @State private var showCartView = false
+    @State var showCartView = false
     
     var body: some View {
+        
         if !apiServices.isFavorites.isEmpty{
             List(apiServices.isFavorites){item in
                 Button(action: {
+                    
                 }, label: {
                     ItemCellHelper(item: item)
                         .onTapGesture {
                             self.item = item
                         }
+                       
                 })
+                .listRowInsets(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 6))
             }
             .listStyle(.plain)
+            .sheet(isPresented: $showCartView, content: {
+                CartView()
+            })
             .sheet(item: $item, content: {item in
                 DetailsView(showCartView: $showCartView, item: item)
             })
@@ -48,9 +55,8 @@ struct FavoritesView: View {
                 }
                 .padding(.horizontal, 50)
                 Spacer()
-                
-                
             }
+            .navigationBarHidden(true)
         }
     }
 }

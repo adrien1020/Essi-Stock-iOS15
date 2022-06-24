@@ -60,7 +60,6 @@ struct HomeView: View {
         switch currentTab{
         case .init(name: "Principal", icon: "folder"):
             MainView()
-                
         case .init(name: "Catégorites", icon: "circle.grid.2x2"):
             CategoritesView()
                 .environmentObject(apiServices)
