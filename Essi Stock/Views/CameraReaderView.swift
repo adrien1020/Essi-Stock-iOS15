@@ -38,10 +38,10 @@ struct CameraReaderView: View {
     }
 }
 
-/*
+
 struct CameraReaderView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraReaderView()
+        CameraReaderView(showCameraReader: .constant(true))
     }
 }
-*/
+

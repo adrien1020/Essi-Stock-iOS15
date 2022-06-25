@@ -70,6 +70,7 @@ struct SearchBarHelper: View {
 
 
 struct SearchBarHelper_Previews: PreviewProvider {
+    
     static var previews: some View {
         SearchBarHelper(searchText: .constant(""))
     }

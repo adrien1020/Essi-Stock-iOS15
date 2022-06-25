@@ -74,7 +74,8 @@ struct ConfirmationDialogView: View {
                                 .background(Color("Orange Color"))
                                 .cornerRadius(15)
                         })
-                        .padding(.bottom, exceedHeight+40)
+                        //.padding(.bottom, exceedHeight+40)
+                        .padding(.bottom, (UIApplication.shared.windows.first?.safeAreaInsets.bottom)! + 40)
                     }
                 }
                 .frame(width: width, height: height+exceedHeight, alignment: .bottom)
@@ -147,10 +148,13 @@ struct CustomCorner: Shape {
     }
 }
 
-/*
+
 struct ConfirmationDialog_Previews: PreviewProvider {
+
     static var previews: some View {
-        ConfirmationDialogView(showConfirmationDialogView: .constant(true), quantityDesired: .constant(2), showCartView: .constant(false), item: Item(id: 1, marque: "Schneider", reference: "1233", image: "222", price: "1200"))
+        ConfirmationDialogView(showConfirmationDialogView: .constant(true), quantityDesired: .constant(3), showCartView: .constant(true), item: Item(id: 1, designation: "Ecran HMI tactile, TP1200 TFT 12.1 in Coloré", marque: "Siemens", reference: "6AV2124-0MC01-0AX0", JDE: "8765301283", image: "https://www.plc-city.com/shop/368-thickbox_default/6av2124-0mc01-0ax0.jpg", description: "Panneau confort Siemens SIMATIC HMI TP1200 avec écran tactile LCD TFT TFT de12,1 pouces. Il utilise un processeur de type X86. Cette HMI innovante est capable de coordonner et d'arrêter de manière centralisée leurs écrans via PROFI pendant les temps de coupure, pour réduire la consommation d'énergie, par rapport aux panneaux SIMATIC précédents.", price: "3383,16", quantity: 1, createdAt: "2022-06-21T20:50:41.962532Z", updatedAt: "2022-06-21T21:07:39.078499Z"))
+            .offset(y:-390)
+            .ignoresSafeArea()
     }
 }
-*/
+

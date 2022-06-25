@@ -35,10 +35,14 @@ struct PhotoButtonHelper: View {
 }
 
 
-/*
- struct PhotoButtonHelper_Previews: PreviewProvider {
- static var previews: some View {
- PhotoButtonHelper()
- }
- }
- */
+struct PhotoButtonHelper_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        ZStack{
+            Color.black
+            PhotoButtonHelper(takePictureIsPressed: .constant(false))
+        }
+        .ignoresSafeArea()
+    }
+}
+

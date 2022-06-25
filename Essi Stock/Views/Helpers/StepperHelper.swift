@@ -44,6 +44,7 @@ struct StepperHelper: View {
 
 
 struct StepperHelper_Previews: PreviewProvider {
+    
     static var previews: some View {
         StepperHelper(quantity: .constant(2))
     }

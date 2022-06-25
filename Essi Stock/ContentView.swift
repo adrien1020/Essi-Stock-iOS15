@@ -50,9 +50,9 @@ struct ContentView: View {
                     print(tabStateVM.showTabRoots)
                     }
                 }
-            }
-            .environmentObject(apiServices)
             Divider()
+        }
+        .environmentObject(apiServices)
             HStack{
                 ForEach(iconName.indices, id:\.self) { index in
                     Spacer()
@@ -62,7 +62,6 @@ struct ContentView: View {
                 }
             }
             .background(colorScheme == .dark ? Color.black : Color.white)
-        
         .ignoresSafeArea(.keyboard)
         .onAppear(){
             fetchData(apiServices: apiServices)

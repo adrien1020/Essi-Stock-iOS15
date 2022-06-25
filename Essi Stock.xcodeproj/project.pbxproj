@@ -16,6 +16,7 @@
 		9F2DBE502861C332006655A2 /* StockClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DBE4F2861C332006655A2 /* StockClassifier.mlmodel */; };
 		9F3AFD3E28603C250069DB14 /* ItemCartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */; };
 		9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F40EDC7285BCECC0053FFDF /* CartView.swift */; };
+		9F470F5D286703E000768B57 /* ItemsHScrollViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F470F5C286703E000768B57 /* ItemsHScrollViewHelper.swift */; };
 		9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653C28591F570092EC26 /* Essi_StockApp.swift */; };
 		9F55653F28591F570092EC26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55653E28591F570092EC26 /* ContentView.swift */; };
 		9F55654128591F590092EC26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F55654028591F590092EC26 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		9F2DBE4F2861C332006655A2 /* StockClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StockClassifier.mlmodel; sourceTree = "<group>"; };
 		9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCartHelper.swift; sourceTree = "<group>"; };
 		9F40EDC7285BCECC0053FFDF /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		9F470F5C286703E000768B57 /* ItemsHScrollViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsHScrollViewHelper.swift; sourceTree = "<group>"; };
 		9F55653928591F570092EC26 /* Essi Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Essi Stock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F55653C28591F570092EC26 /* Essi_StockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Essi_StockApp.swift; sourceTree = "<group>"; };
 		9F55653E28591F570092EC26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */,
 				9F55655B28592B520092EC26 /* ItemCellHelper.swift */,
 				9F3AFD3D28603C250069DB14 /* ItemCartHelper.swift */,
+				9F470F5C286703E000768B57 /* ItemsHScrollViewHelper.swift */,
 				9F25C173285FD334007E4D88 /* ItemConfimationDialogHelper.swift */,
 				9F102EF5285A866E0022FBDB /* CameraPreviewHelper.swift */,
 				9F102EF9285A8CE50022FBDB /* PhotoButtonHelper.swift */,
@@ -281,6 +284,7 @@
 				9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */,
 				9F0949FC2859A43000662370 /* SearchBarHelper.swift in Sources */,
 				9F88F837285A797F00D0A8C9 /* SegmentedControlHelper.swift in Sources */,
+				9F470F5D286703E000768B57 /* ItemsHScrollViewHelper.swift in Sources */,
 				9FFA80E4285AFD2E00318C25 /* DetailsViewModel.swift in Sources */,
 				9F5565532859222A0092EC26 /* CategoritesView.swift in Sources */,
 				9FFA80E2285AF2AA00318C25 /* DetailsView.swift in Sources */,

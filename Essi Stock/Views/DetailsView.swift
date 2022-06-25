@@ -23,6 +23,7 @@ struct DetailsView: View {
     var item: Item
     
     var body: some View {
+        
         ZStack {
             VStack{
                 ScrollView(.vertical, showsIndicators: false){
@@ -127,13 +128,14 @@ struct DetailsView: View {
             ConfirmationDialogView(showConfirmationDialogView: $showConfirmationDialogView, quantityDesired: $quantityDesired, showCartView: $showCartView, item: item)
         }
     }
+    
 }
 
-/*
+
 struct DetailsView_Previews: PreviewProvider {
-   var apiServices = APIServices()
     static var previews: some View {
-        DetailsView(showCartView: .constant(true), item: Item(id: 1, designation: "Connecteur RS PRO à utiliser avec Thermocouple de type K", marque: "RS PRO", reference: "455-9764", JDE: "129390191002", image: "https://th.misumi-ec.com/en/linked/material/mech/BQQ1/PHOTO/221302147574_001.jpg", description: "Connecteurs mâles en ligne miniatures à code couleur CEI pour thermocouple de RS PRO\r\n\r\nConnecteur mâle miniature en ligne pour thermocouple de RS PRO avec code couleur conformément à la spécification CEI. Cette fiche mâle de thermocouple est idéale pour connecter la sonde à thermocouple ou les bornes à fil aux câbles d'extension ou de compensation. Cette fiche mâle fournit également une solution rapide, sûre et sans erreur de remplacement des thermocouples existants. Le boîtier pour fiche mâle est fabriqué à partir d'un thermoplastique renforcé de fibre de verre robuste, résistant aux chocs et aux hautes températures jusqu'à 220 °C. Les broches sur ce connecteur mâle sont de conception plate et polarisés pour assurer une connexion précise. Le type de thermocouple à code couleur CEI est clairement indiqué sur le devant du boîtier pour permettre une identification aisée.\r\n\r\nQu'est-ce qu'un connecteur de thermocouple ?\r\n\r\nCes connecteurs de thermocouple sont une solution précise", price: "3.74", quantity: 4, createdAt: "2022-06-21T20:50:41.962532Z", updatedAt: "2022-06-21T21:07:39.078499Z", isFavorite: true, desiredQuantity: 1))
+            DetailsView(showCartView: .constant(false), quantityDesired: 1, showConfirmationDialogView: false, catIndex: 0, catL1Index: 0, catL2Index: 0, itemIndex: 0, item: Item(id: 1, designation: "Ecran HMI tactile, TP1200 TFT 12.1 in Coloré", marque: "Siemens", reference: "6AV2124-0MC01-0AX0", JDE: "8765301283", image: "https://www.plc-city.com/shop/368-thickbox_default/6av2124-0mc01-0ax0.jpg", description: "Panneau confort Siemens SIMATIC HMI TP1200 avec écran tactile LCD TFT TFT de12,1 pouces. Il utilise un processeur de type X86. Cette HMI innovante est capable de coordonner et d'arrêter de manière centralisée leurs écrans via PROFI pendant les temps de coupure, pour réduire la consommation d'énergie, par rapport aux panneaux SIMATIC précédents.", price: "3383,16", quantity: 1, createdAt: "2022-06-21T20:50:41.962532Z", updatedAt: "2022-06-21T21:07:39.078499Z"))
+            .environmentObject(APIServices())
     }
 }
-*/
+

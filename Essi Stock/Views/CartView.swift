@@ -45,8 +45,11 @@ struct CartView: View {
     }
 }
 
+/*
 struct CartView_Previews: PreviewProvider {
+    static let apiServices = APIServices()
     static var previews: some View {
         CartView()
     }
 }
+*/
