@@ -17,6 +17,7 @@ enum RequestError: Error {
 class APIServices: ObservableObject{
     
     @Published var items: [ItemModel] = []
+    @Published var allItems: [Item] = []
     @Published var isFavorites : [Item] = []
     @Published var itemsCart : [Item] = []
     @Published var recentes : [Item] = []
@@ -70,6 +71,19 @@ class APIServices: ObservableObject{
             }
         }
     }
+    func getAllItems(){
+        self.allItems = []
+        for catIndex in items.indices{
+            for catL1Index in items[catIndex].categoritesLevelOne.indices{
+                for catL2Index in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo.indices{
+                    for itemIndex in items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items.indices{
+                        self.allItems.append( items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex])
+                    }
+                }
+            }
+        }
+    }
+    
     
     func getItemIndex(item:Item, completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
         for catIndex in items.indices{

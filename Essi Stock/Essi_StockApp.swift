@@ -15,6 +15,7 @@ struct Essi_StockApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .ignoresSafeArea(.keyboard)
                 .onChange(of: scenePhase, perform: {scene in
                     switch scene{
                     case .active:

@@ -14,10 +14,13 @@ struct SearchView: View {
     @State var searchText = ""
     @State var items: [Item] = []
     
+    @State private var showCartView = false
+    @State var result: Item?
+    
     var body: some View {
         VStack{
             SearchBarHelper(searchText: $searchText)
-            if apiServices.items.isEmpty{
+            if items.isEmpty && searchText.isEmpty{
                 VStack{
                     Spacer()
                     VStack(spacing: 20){
@@ -39,11 +42,28 @@ struct SearchView: View {
             } else {
                 List{
                     ForEach(searchResults){result in
-                        Text(result.marque)
+                        
+                        Button(action: {
+                            self.result = result
+                        }, label: {
+                            ItemCellHelper(item: result)
+                        })
+                        
+                        
+                        
                     }
                 }
                 .searchable(text: $searchText)
+                .sheet(item: $result, content: {item in
+                    DetailsView(showCartView: $showCartView, item: item)
+                })
+                .sheet(isPresented: $showCartView, content: {
+                    CartView()
+                })
             }
+        }
+        .onAppear(){
+            apiServices.getAllItems()
         }
     }
     
@@ -51,7 +71,11 @@ struct SearchView: View {
         if searchText.isEmpty {
             return items
         } else {
-            return items.filter { ($0.marque.localizedCaseInsensitiveContains(searchText))}
+            return apiServices.allItems.filter { ($0.marque.localizedCaseInsensitiveContains(searchText)) ||
+                ($0.designation.localizedCaseInsensitiveContains(searchText)) ||
+                ($0.reference.localizedCaseInsensitiveContains(searchText)) ||
+                ($0.JDE.localizedCaseInsensitiveContains(searchText))
+            }
         }
     }
 }

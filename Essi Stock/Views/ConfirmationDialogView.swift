@@ -120,7 +120,7 @@ struct ConfirmationDialogView: View {
         let maxOpacity = 0.85
         let maxHeight = height + exceedHeight
         
-        if offset <= -exceedHeight{
+        if offset <= 0{
             return maxOpacity
         }else{
             let progress = ((height - offset) * maxOpacity) / maxHeight
@@ -129,9 +129,11 @@ struct ConfirmationDialogView: View {
         }
     }
     func onChange(state: Double){
+        if state >= -exceedHeight{
         DispatchQueue.main.async {
             self.offset = state
             //print("DEBUG offset: \(offset)")
+        }
         }
     }
 }

@@ -56,7 +56,7 @@ struct ItemCellHelper: View {
                 HStack{
                     Spacer()
                     Button(action: {
-                        
+                        print("coeur")
                         apiServices.getItemIndex(item: item, completionHandler: {catIndex, catL1Index, catL2Index, itemIndex in
                             apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite.toggle()
                             let item = apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex]

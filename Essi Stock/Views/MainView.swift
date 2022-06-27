@@ -35,7 +35,7 @@ struct MainView: View {
                     VStack(spacing: 20){
                         if !apiServices.recentes.isEmpty{
                             ItemsHScrollViewHelper(title: "Objets récemment consultés", items: apiServices.recentes)
-                            ItemsHScrollViewHelper(title: "Derniers objets ajoutés", items: apiServices.recentes)
+                            ItemsHScrollViewHelper(title: "Derniers objets ajoutés", items: apiServices.allItems)
                             }
                         }
                         

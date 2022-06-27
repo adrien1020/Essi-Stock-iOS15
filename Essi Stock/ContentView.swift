@@ -32,6 +32,7 @@ struct ContentView: View {
                         tabStateVM.lastSelectedTab = Tab.first
                     })
                     .tag(Tab.first)
+                    
                 PersonalView()
                     .environmentObject(tabStateVM)
                     .onAppear(perform: {
@@ -44,6 +45,8 @@ struct ContentView: View {
                     })
                     .tag(Tab.third)
             }
+            
+            
             .onReceive(tabStateVM.$selectedTab) { selection in
                 if selection == tabStateVM.lastSelectedTab {
                     tabStateVM.showTabRoots[selection.rawValue] = false
@@ -62,10 +65,10 @@ struct ContentView: View {
                 }
             }
             .background(colorScheme == .dark ? Color.black : Color.white)
-        .ignoresSafeArea(.keyboard)
         .onAppear(){
             fetchData(apiServices: apiServices)
         }
+        
     }
 }
 

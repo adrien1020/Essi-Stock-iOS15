@@ -12,10 +12,10 @@ struct ItemsView: View {
     @EnvironmentObject var apiServices: APIServices
     
     @State private var showCartView = false
+    @State var item : Item?
     
     var categoriteLevelTwo: CategoritesLevelTwo
     
-    @State var item : Item?
     var body: some View {
         List(categoriteLevelTwo.items){item in
             Button(action: {
