@@ -14,8 +14,8 @@ struct CategoritesLevelTwoView: View {
     var categoriteLevelOne: CategoritesLevelOne
    
     var body: some View {
-        List(categoriteLevelOne.categoritesLevelTwo){ categoriteLevelTwo in
-                NavigationLink(destination: ItemsView(categoriteLevelTwo: categoriteLevelTwo).environmentObject(apiServices)){
+        List(Array(categoriteLevelOne.categoritesLevelTwo.enumerated()), id:\.offset){ catL2Index, categoriteLevelTwo in
+                NavigationLink(destination: ItemsView(categoriteLevelTwo: categoriteLevelTwo)){
                     Text(categoriteLevelTwo.name)
                 }
             }

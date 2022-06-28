@@ -35,10 +35,13 @@ struct MainView: View {
                     VStack(spacing: 20){
                         if !apiServices.recentes.isEmpty{
                             ItemsHScrollViewHelper(title: "Objets récemment consultés", items: apiServices.recentes)
-                            ItemsHScrollViewHelper(title: "Derniers objets ajoutés", items: apiServices.allItems)
+                           
                             }
+                        ItemsHScrollViewHelper(title: "Derniers objets ajoutés", items: apiServices.allItems)
+                            .onChange(of: apiServices.items, perform: { items in
+                                    apiServices.getAllItems(items: items)
+                            })
                         }
-                        
                     HStack{
                         Text("Vendeurs recommandés")
                             .font(.title2)
@@ -46,7 +49,6 @@ struct MainView: View {
                             .multilineTextAlignment(.center)
                         Spacer()
                         Button(action: {
-                            
                         }, label: {
                             Text("Tout")
                                 .foregroundColor(Color("Orange Color"))

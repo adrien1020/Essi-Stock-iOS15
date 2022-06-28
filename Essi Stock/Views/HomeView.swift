@@ -11,10 +11,11 @@ struct HomeView: View {
     
     @EnvironmentObject var apiServices: APIServices
     @EnvironmentObject var tabState: TabStateViewModel
-    @State var searchText = ""
-    @State private var currentTab = TabModel(name: "Principal", icon: "folder")
     
     @Namespace var animation
+    
+    @State var searchText = ""
+    @State private var currentTab = TabModel(name: "Principal", icon: "folder")
     
     private let tabs = [TabModel(name: "Principal", icon: "folder"),
                         TabModel(name: "Catégorites", icon: "circle.grid.2x2")]
@@ -52,7 +53,6 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }
-        .environmentObject(apiServices)
         .navigationViewStyle(.stack)
     }
     
@@ -62,8 +62,6 @@ struct HomeView: View {
             MainView()
         case .init(name: "Catégorites", icon: "circle.grid.2x2"):
             CategoritesView()
-                .environmentObject(apiServices)
-                .environmentObject(tabState)
         default:
             Text("La vue n'éxiste pas")
         }
@@ -77,6 +75,7 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
             .environmentObject(apiServices)
             .onAppear{
+                
                 Task{
                     do {
                         print("DEBUG: Download data")

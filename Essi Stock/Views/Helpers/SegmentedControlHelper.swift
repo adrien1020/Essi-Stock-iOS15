@@ -34,7 +34,7 @@ struct SegmentedButtonControl: View{
     @Binding var currentTab: TabModel
     var selectedTab : TabModel
     var animation: Namespace.ID
-    @Environment(\.colorScheme) var colorScheme
+
     var body: some View{
         Button(action: {
             withAnimation(.spring()){

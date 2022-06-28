@@ -48,9 +48,6 @@ struct SearchView: View {
                         }, label: {
                             ItemCellHelper(item: result)
                         })
-                        
-                        
-                        
                     }
                 }
                 .searchable(text: $searchText)
@@ -61,9 +58,6 @@ struct SearchView: View {
                     CartView()
                 })
             }
-        }
-        .onAppear(){
-            apiServices.getAllItems()
         }
     }
     

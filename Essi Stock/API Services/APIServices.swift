@@ -16,11 +16,11 @@ enum RequestError: Error {
 
 class APIServices: ObservableObject{
     
-    @Published var items: [ItemModel] = []
-    @Published var allItems: [Item] = []
-    @Published var isFavorites : [Item] = []
-    @Published var itemsCart : [Item] = []
-    @Published var recentes : [Item] = []
+    @Published var items = [ItemModel]()
+    @Published var allItems = [Item]()
+    @Published var isFavorites = [Item]()
+    @Published var itemsCart = [Item]()
+    @Published var recentes = [Item]()
     
     func fetchData(urlString: String) async throws {
         guard let url = URL(string: urlString) else {throw RequestError.invalidURL}
@@ -71,7 +71,7 @@ class APIServices: ObservableObject{
             }
         }
     }
-    func getAllItems(){
+    func getAllItems(items: [ItemModel]){
         self.allItems = []
         for catIndex in items.indices{
             for catL1Index in items[catIndex].categoritesLevelOne.indices{

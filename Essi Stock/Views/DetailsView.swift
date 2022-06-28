@@ -23,7 +23,6 @@ struct DetailsView: View {
     var item: Item
     
     var body: some View {
-        
         ZStack {
             VStack{
                 ScrollView(.vertical, showsIndicators: false){

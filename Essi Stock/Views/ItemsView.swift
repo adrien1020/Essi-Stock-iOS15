@@ -12,7 +12,7 @@ struct ItemsView: View {
     @EnvironmentObject var apiServices: APIServices
     
     @State private var showCartView = false
-    @State var item : Item?
+    @State private var item : Item?
     
     var categoriteLevelTwo: CategoritesLevelTwo
     
@@ -23,9 +23,9 @@ struct ItemsView: View {
                 
             }, label: {
                 ItemCellHelper(item: item)
-                    
+                
             })
-            .listRowInsets(EdgeInsets(top: 4,leading: 4, bottom: 4, trailing: 6))
+            .listRowInsets(EdgeInsets(top: 4,leading: 6, bottom: 4, trailing: 6))
         }
         .listStyle(.plain)
         .refreshable {
@@ -42,8 +42,9 @@ struct ItemsView: View {
 }
 
 /*
- struct ItemsView_Previews: PreviewProvider {
- static var previews: some View {
- ItemsView()
- }
- }*/
+struct ItemsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ItemsView()
+    }
+}
+*/

@@ -11,7 +11,12 @@ struct ItemCellHelper: View {
     
     @EnvironmentObject var apiServices: APIServices
     
-    var item: Item
+    @State var catIndex = 0
+    @State var catL1Index = 0
+    @State var catL2Index = 0
+    @State var itemIndex = 0
+    
+    @State var item: Item
     
     var body: some View {
         HStack(spacing: 6){
@@ -56,22 +61,24 @@ struct ItemCellHelper: View {
                 HStack{
                     Spacer()
                     Button(action: {
-                        print("coeur")
-                        apiServices.getItemIndex(item: item, completionHandler: {catIndex, catL1Index, catL2Index, itemIndex in
                             apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite.toggle()
-                            let item = apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex]
-                            
+                            item = apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex]
                             apiServices.addToFavorites(item: item)
-                            
-                            
-                            
-                        })
+                        
                     }, label: {
-                        Image(systemName: item.isFavorite ? "heart.fill": "heart" )
+                        Image(systemName: apiServices.items[catIndex].categoritesLevelOne[catL1Index].categoritesLevelTwo[catL2Index].items[itemIndex].isFavorite ? "heart.fill": "heart" )
                             .foregroundColor(.red)
                     })
                 }
             }
+        }
+        .onAppear(){
+            apiServices.getItemIndex(item: item, completionHandler: {catIndex, catL1Index, catL2Index, itemIndex in
+                self.catIndex = catIndex
+                self.catL1Index = catL1Index
+                self.catL2Index = catL2Index
+                self.itemIndex = itemIndex
+            })
         }
     }
 }

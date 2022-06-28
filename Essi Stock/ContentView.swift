@@ -10,7 +10,7 @@ import CoreML
 
 struct ContentView: View {
     
-    @Environment(\.colorScheme) var colorScheme
+    
     
     @StateObject var apiServices =  APIServices()
     @StateObject var tabStateVM = TabStateViewModel()
@@ -27,14 +27,12 @@ struct ContentView: View {
         VStack(spacing: 0){
             TabView(selection: $tabStateVM.selectedTab) {
                 HomeView()
-                    .environmentObject(tabStateVM)
                     .onAppear(perform: {
                         tabStateVM.lastSelectedTab = Tab.first
                     })
                     .tag(Tab.first)
                     
                 PersonalView()
-                    .environmentObject(tabStateVM)
                     .onAppear(perform: {
                         tabStateVM.lastSelectedTab = Tab.second
                     })
@@ -46,7 +44,6 @@ struct ContentView: View {
                     .tag(Tab.third)
             }
             
-            
             .onReceive(tabStateVM.$selectedTab) { selection in
                 if selection == tabStateVM.lastSelectedTab {
                     tabStateVM.showTabRoots[selection.rawValue] = false
@@ -55,6 +52,7 @@ struct ContentView: View {
                 }
             Divider()
         }
+        .environmentObject(tabStateVM)
         .environmentObject(apiServices)
             HStack{
                 ForEach(iconName.indices, id:\.self) { index in
@@ -64,7 +62,7 @@ struct ContentView: View {
                     Spacer()
                 }
             }
-            .background(colorScheme == .dark ? Color.black : Color.white)
+            
         .onAppear(){
             fetchData(apiServices: apiServices)
         }
@@ -73,7 +71,7 @@ struct ContentView: View {
 }
 
 struct TabButton: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var tabState: TabStateViewModel
     
     var iconName: String
@@ -96,6 +94,7 @@ struct TabButton: View {
             Image(systemName: iconName)
                 .font(.system(size: 25))
                 .foregroundColor(tabState.selectedTab.rawValue == index ? Color("Orange Color") : .black.opacity(0.4))
+                
                 .padding()
         })
     }

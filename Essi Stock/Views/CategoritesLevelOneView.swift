@@ -15,7 +15,7 @@ struct CategoritesLevelOneView: View {
     
     var body: some View {
         List(categorite.categoritesLevelOne){ categoriteLevelOne in
-            NavigationLink(destination: CategoritesLevelTwoView(categoriteLevelOne: categoriteLevelOne).environmentObject(apiServices)){
+            NavigationLink(destination: CategoritesLevelTwoView(categoriteLevelOne: categoriteLevelOne)){
                 Text(categoriteLevelOne.name)
             }
             .isDetailLink(false)

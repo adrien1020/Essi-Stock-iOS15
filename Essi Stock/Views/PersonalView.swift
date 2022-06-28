@@ -23,7 +23,6 @@ struct PersonalView: View {
     var body: some View {
         HomeViewBuilderHelper(searchText: $searchText, currentTab: $currentTab, animation: animation, tabs: tabs, content: {
             PersonalPagesSelection()
-                .environmentObject(apiServices)
                 .onTapGesture {
                     closeKeyboard()
                 }
