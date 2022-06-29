@@ -28,7 +28,7 @@ struct FavoritesView: View {
                         }
             
                 })
-                .listRowInsets(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 6))
+                .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             }
             .listStyle(.plain)
             .sheet(isPresented: $showCartView, content: {

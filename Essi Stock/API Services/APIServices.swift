@@ -58,7 +58,7 @@ class APIServices: ObservableObject{
     
     func addToFavorites(item:Item){
         var removeIndex = 0
-        withAnimation(.easeInOut){
+        withAnimation(.spring()){
             if item.isFavorite{
                 isFavorites.append(item)
             }else {
