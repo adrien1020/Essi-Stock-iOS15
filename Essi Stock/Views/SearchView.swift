@@ -13,14 +13,14 @@ struct SearchView: View {
     
     @State var searchText = ""
     @State var items: [Item] = []
-    
+    @State var alreadySearched : [String] = []
     @State private var showCartView = false
     @State var result: Item?
     
     var body: some View {
         VStack{
             SearchBarHelper(searchText: $searchText)
-            if items.isEmpty && searchText.isEmpty{
+            if alreadySearched.isEmpty && searchText == ""{
                 VStack{
                     Spacer()
                     VStack(spacing: 20){
@@ -39,17 +39,42 @@ struct SearchView: View {
                     .padding(.horizontal, 50)
                     Spacer()
                 }
-            } else {
+            } else if !alreadySearched.isEmpty && searchText.isEmpty {
+                VStack{
+                    List(alreadySearched, id:\.self){searched in
+                        Text(searched)
+                            .listRowSeparator(.hidden)
+                            .onTapGesture {
+                                withAnimation(.easeIn){
+                                    searchText = searched
+                                }
+                            }
+                    }.listStyle(.plain)
+                    Button(action: {
+                        withAnimation(.easeOut){
+                            alreadySearched.removeAll()
+                        }
+                    }, label: {
+                        Text("Tout Effacer")
+                    })
+                    Spacer()
+                }
+                Spacer()
+            }
+            else {
                 List{
                     ForEach(searchResults){result in
-                        
                         Button(action: {
                             self.result = result
+                            alreadySearched.append(searchText)
+                            closeKeyboard()
                         }, label: {
                             ItemCellHelper(item: result)
                         })
+                        .listRowSeparator(.hidden)
                     }
                 }
+                .listStyle(.plain)
                 .searchable(text: $searchText)
                 .sheet(item: $result, content: {item in
                     DetailsView(showCartView: $showCartView, item: item)
