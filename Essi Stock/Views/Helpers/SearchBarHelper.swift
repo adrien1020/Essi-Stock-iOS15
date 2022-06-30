@@ -20,29 +20,29 @@ struct SearchBarHelper: View {
     
     var body: some View {
         HStack(spacing: 10){
-            TextField("Rechercher un produit",text: $searchText, onEditingChanged: { changed in
-                withAnimation(.easeIn){
-                    self.isEditingChanged = changed
-                }
-            }, onCommit: {
-                print("DEBUG: Text Field commit")
-            })
-            .padding(.leading, 20)
-            .frame(height: 40)
-            .overlay(
-                ZStack(alignment: .trailing){
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color("Orange Color"),lineWidth: 2)
-                    if searchText != "" && isEditingChanged{
-                        Button(action: {
-                            searchText = ""
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(Color.gray.opacity(0.6))
-                        })
-                        .padding(.trailing, 8)
+            HStack{
+                TextField("Rechercher...",text: $searchText, onEditingChanged: { changed in
+                    withAnimation(.easeIn){
+                        self.isEditingChanged = changed
                     }
+                }, onCommit: {
+                    print("DEBUG: Text Field commit")
+                })
+                .padding(.leading, 20)
+                .frame(height: 40)
+                if searchText != "" && isEditingChanged{
+                    Button(action: {
+                        searchText = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(Color.gray.opacity(0.6))
+                    })
+                    .padding(.horizontal, 6)
                 }
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color("Orange Color"),lineWidth: 2)
             )
             if isEditingChanged{
                 Button(action: {
@@ -53,9 +53,7 @@ struct SearchBarHelper: View {
                 }, label: {
                     Text("Annuler")
                         .foregroundColor(Color("Orange Color").opacity(0.9))
-                    
                 })
-                
             }
             HStack{
                 if !isEditingChanged{

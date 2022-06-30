@@ -93,6 +93,7 @@ struct SearchView: View {
                 for item in apiServices.allItems{
                     bagOfWords.append(item.marque)
                     bagOfWords.append("\(item.marque + " \(item.reference)")")
+                    bagOfWords.append(item.reference)
                     bagOfWords.append(item.designation)
                     bagOfWords.append(item.JDE)
                 }
