@@ -27,7 +27,7 @@ struct HomeViewBuilderHelper<Content:View>: View {
     }
     
     var body: some View {
-        VStack{
+        VStack(spacing:8){
             SearchBarHelper(searchText: $searchText)
             SegmentedControlHelper(currentTab: $currentTab, animation: animation, tabs: tabs)
             content

@@ -21,7 +21,7 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
+            VStack(spacing: 8){
                 SearchBarHelper(searchText: $searchText)
                 if alreadySearched.isEmpty && searchText == ""{
                     VStack{

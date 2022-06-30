@@ -20,7 +20,7 @@ struct SearchBarHelper: View {
     
     var body: some View {
         HStack(spacing: 10){
-            TextField("Search",text: $searchText, onEditingChanged: { changed in
+            TextField("Rechercher un produit",text: $searchText, onEditingChanged: { changed in
                 withAnimation(.easeIn){
                     self.isEditingChanged = changed
                 }
@@ -30,11 +30,35 @@ struct SearchBarHelper: View {
             .padding(.leading, 20)
             .frame(height: 40)
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color("Orange Color"),lineWidth: 2))
-            if !isEditingChanged{
-                HStack{
+                ZStack(alignment: .trailing){
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color("Orange Color"),lineWidth: 2)
+                    if searchText != "" && isEditingChanged{
+                        Button(action: {
+                            searchText = ""
+                        }, label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(Color.gray.opacity(0.6))
+                        })
+                        .padding(.trailing, 8)
+                    }
+                }
+            )
+            if isEditingChanged{
+                Button(action: {
+                    withAnimation(.easeOut){
+                        isEditingChanged = false
+                    }
+                    closeKeyboard()
+                }, label: {
+                    Text("Annuler")
+                        .foregroundColor(Color("Orange Color").opacity(0.9))
                     
+                })
+                
+            }
+            HStack{
+                if !isEditingChanged{
                     Button(action: {
                         showCameraReaderView.toggle()
                     }, label: {
@@ -60,7 +84,6 @@ struct SearchBarHelper: View {
         .padding(.horizontal, 10)
         .sheet(isPresented:$showCartView){
             CartView()
-                .environmentObject(apiServices)
         }
         .sheet(isPresented:$showCameraReaderView){
             CameraReaderView(showCameraReader: $showCameraReaderView)
