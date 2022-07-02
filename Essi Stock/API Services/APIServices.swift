@@ -47,18 +47,12 @@ class APIServices: ObservableObject{
             if self.recentes.count == 10{
                 self.recentes.remove(at: 0)
             }
-        
-            
-            
         }
     }
     
-    
-    
-    
     func addToFavorites(item:Item){
         var removeIndex = 0
-        withAnimation(.spring()){
+        withAnimation{
             if item.isFavorite{
                 isFavorites.append(item)
             }else {
@@ -71,6 +65,7 @@ class APIServices: ObservableObject{
             }
         }
     }
+    
     func getAllItems(items: [ItemModel]){
         self.allItems = []
         for catIndex in items.indices{
@@ -83,7 +78,6 @@ class APIServices: ObservableObject{
             }
         }
     }
-    
     
     func getItemIndex(item:Item, completionHandler: @escaping (_ catIndex: Int, _ catL1Index: Int, _ caL2Index: Int, _ itemIndex: Int) -> Void){
         for catIndex in items.indices{
