@@ -12,7 +12,6 @@ struct RecentesView: View {
     var body: some View {
         List(apiServices.recentes){recentItem in
             ItemConfimationDialogHelper(item: recentItem)
-            
         }
         .listStyle(.plain)
     }

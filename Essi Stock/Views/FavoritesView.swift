@@ -26,7 +26,6 @@ struct FavoritesView: View {
                         .onTapGesture {
                             self.item = item
                         }
-            
                 })
                 .listRowInsets(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             }

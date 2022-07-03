@@ -27,7 +27,9 @@ struct SearchView: View {
                 } else {
                     EmptySearchView()
                 }
-            }.onChange(of: searchText, perform: { searchTextValue in
+            }
+            .navigationViewStyle(.stack)
+            .onChange(of: searchText, perform: { searchTextValue in
                 if searchTextValue != ""{
                     endOfNavigation = false
                 }
@@ -65,15 +67,15 @@ struct SuggestedView: View{
                                 .foregroundColor(Color.black)
                             Spacer()
                         }
+                        .simultaneousGesture(TapGesture().onEnded{
+                            alreadySearched.append(result)
+                            searchText = result
+                            closeKeyboard()
+                            self.itemResult = searchItemResults
+                            navIsActive = true
+                        })
                         .padding(.leading, 8)
                     }
-                    .simultaneousGesture(TapGesture().onEnded{
-                        alreadySearched.append(result)
-                        searchText = result
-                        closeKeyboard()
-                        self.itemResult = searchItemResults
-                        navIsActive = true
-                    })
                 }
                 Spacer()
                     .navigationBarHidden(true)
@@ -93,7 +95,6 @@ struct SuggestedView: View{
         if searchText.isEmpty {
             return []
         } else {
-            print("DEBUG: \(bagOfWords.filter({$0.localizedStandardContains(searchText)}).uniqued())")
             return bagOfWords.filter({$0.localizedStandardContains(searchText)}).uniqued()
         }
     }
@@ -116,6 +117,9 @@ struct SearchResultView: View{
     
     @Environment(\.presentationMode) var presentationMode
     
+    @State private var showCartView = false
+    @State private var item : Item?
+    
     var result: [Item]
     
     @Binding var searchText: String
@@ -125,6 +129,7 @@ struct SearchResultView: View{
     var body: some View{
         List(result){item in
             Button(action: {
+                self.item = item
             }, label: {
                 ItemCellHelper(item: item)
             })
@@ -143,7 +148,14 @@ struct SearchResultView: View{
                 })
             }
         })
+        .sheet(isPresented: $showCartView, content: {
+            CartView()
+        })
+        .sheet(item: $item, content: {item in
+            DetailsView(showCartView: $showCartView, item: item)
+        })
     }
+    
 }
 
 
@@ -167,35 +179,38 @@ struct AlreadySearchView: View{
                     NavigationLink(destination: SearchResultView(result: searchItemResults, searchText: $searchText, navIsActive: $navIsActive, endOfNavigation: $endOfNavigation), isActive: $navIsActive){EmptyView()}
                 }
             }.hidden()
-            VStack(alignment: .leading){
+            VStack(alignment: .leading, spacing: 10){
                 ForEach(alreadySearched.uniqued(), id:\.self){result in
                     Divider()
-                        VStack{
-                            HStack{
-                                Text(result)
-                                    .foregroundColor(Color.black)
-                                Spacer()
-                            }
-                            .padding(.leading, 8)
+                    VStack{
+                        HStack{
+                            Text(result)
+                                .foregroundColor(Color.black)
+                            Spacer()
                         }
-                    .simultaneousGesture(TapGesture().onEnded{
-                        navIsActive = true
-                        searchText = result
-                        closeKeyboard()
-                        self.itemResult = searchItemResults
-                    })
+                        .simultaneousGesture(TapGesture().onEnded{
+                            navIsActive = true
+                            searchText = result
+                            closeKeyboard()
+                            self.itemResult = searchItemResults
+                        })
+                        
+                    }
+                    
                 }
                 Spacer()
                     .navigationBarHidden(true)
+                
+                Button(action: {
+                    withAnimation{
+                        removeList.toggle()
+                    }
+                    alreadySearched.removeAll()
+                }, label: {
+                    Text("Tout effacer")
+                })
             }
-            Button(action: {
-                withAnimation{
-                    removeList.toggle()
-                }
-                alreadySearched.removeAll()
-            }, label: {
-                Text("Tout Effacer")
-            })
+            .padding(.leading, 8)
         }
     }
     var searchItemResults : [Item]{
@@ -238,10 +253,27 @@ struct EmptySearchView: View{
 }
 
 
+
+
+
 extension Sequence where Element: Hashable {
     func uniqued() -> [Element] {
         // Filter bagOfWords array and return without duplicate elements
         var set = Set<Element>()
         return filter { set.insert($0).inserted }
+    }
+}
+
+
+struct EmptySearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        EmptySearchView()
+    }
+}
+
+
+struct AlreadySearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        AlreadySearchView(searchText: .constant(""), alreadySearched: .constant(["Schneider", "Siemens"]), bagOfWords: .constant(["Siemens", "Schneider"]), navIsActive: .constant(false), endOfNavigation: .constant(false))
     }
 }
