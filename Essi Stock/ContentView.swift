@@ -62,11 +62,9 @@ struct ContentView: View {
                     Spacer()
                 }
             }
-            
         .onAppear(){
             fetchData(apiServices: apiServices)
         }
-        
     }
 }
 
@@ -94,8 +92,7 @@ struct TabButton: View {
             Image(systemName: iconName)
                 .font(.system(size: 25))
                 .foregroundColor(tabState.selectedTab.rawValue == index ? Color("Orange Color") : .black.opacity(0.4))
-                
-                .padding()
+                .padding(.vertical, 6)
         })
     }
 }

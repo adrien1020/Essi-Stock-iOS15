@@ -30,11 +30,12 @@ struct ConfirmationDialogView: View {
                 let width = geometry.size.width
                 let height = geometry.size.height/2.5
                 ZStack{
+                    // // MARK: - Background color with corner radius
                     Color.white
                         .clipShape(CustomCorner(corners: [.topLeft, .topRight], radius: 30))
                         .shadow(color: Color.black, radius: 5, x: 0, y: 5)
                     VStack(spacing: 10){
-                        //Capsule
+                        // MARK: - Capsule
                         HStack{
                             Spacer()
                             Capsule()
@@ -43,7 +44,7 @@ struct ConfirmationDialogView: View {
                                 .padding(.top, 8)
                             Spacer()
                         }
-                        //Checkmark icon + Text add to cart
+                        // MARK: - Checkmark icon + Text add to cart
                         HStack{
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
@@ -55,11 +56,11 @@ struct ConfirmationDialogView: View {
                         .padding(.leading, 10)
                         .padding(.top, 10)
                         Spacer()
-                        // Item cell
+                        // MARK: - Item cell
                         ItemConfimationDialogHelper(item: item)
                             .padding(.horizontal, 4)
                         Spacer()
-                        //Button add to cart
+                        // MARK: - Button add to cart
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
@@ -114,9 +115,10 @@ struct ConfirmationDialogView: View {
         }
     }
     
-    //Get opacity value for the background
+    
+    // MARK: - Get Progress opacity
     func getProgress(height: CGFloat)->CGFloat{
-        
+        ///Get opacity value for the background
         let maxOpacity = 0.85
         let maxHeight = height + exceedHeight
         
@@ -128,6 +130,8 @@ struct ConfirmationDialogView: View {
             return progress
         }
     }
+    
+    
     func onChange(state: Double){
         if state >= -exceedHeight{
         DispatchQueue.main.async {
@@ -138,7 +142,7 @@ struct ConfirmationDialogView: View {
     }
 }
 
-//Custom corner for view clipshape
+// MARK: - Custom corner for view clipshape
 struct CustomCorner: Shape {
     
     var corners : UIRectCorner
@@ -150,7 +154,7 @@ struct CustomCorner: Shape {
     }
 }
 
-
+// MARK: - Confirmation Dialog Previews
 struct ConfirmationDialog_Previews: PreviewProvider {
 
     static var previews: some View {

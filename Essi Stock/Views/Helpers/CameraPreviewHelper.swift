@@ -18,6 +18,7 @@ struct CameraPreview: UIViewRepresentable{
     
     @Binding var takePictureIsPressed: Bool
     @Binding var showAlert: Bool
+   
     let captureSession = AVCaptureSession()
     
     
@@ -119,7 +120,10 @@ struct CameraPreview: UIViewRepresentable{
             guard let imageData = photo.fileDataRepresentation()
             else {return}
             let image = UIImage(data: imageData)
-            print(image!)
+            print(image?.size.height)
+            print((image?.size.height)! * image!.scale)
+            print(image?.size.width)
+            print((image?.size.width)! * image!.scale)
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             session!.stopRunning()
         }

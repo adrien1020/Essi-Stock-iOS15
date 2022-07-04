@@ -20,5 +20,6 @@ struct RecentesView: View {
 struct RecentesView_Previews: PreviewProvider {
     static var previews: some View {
         RecentesView()
+            .environmentObject(APIServices())
     }
 }

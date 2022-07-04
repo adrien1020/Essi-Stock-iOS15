@@ -169,8 +169,10 @@ struct AlreadySearchView: View{
     @Binding var navIsActive :Bool
     @Binding var endOfNavigation :Bool
     
-    @State var removeList = false
+
+    @State var showConfirmation = false
     @State var itemResult: [Item]?
+    
     
     var body: some View{
         ScrollView{
@@ -181,7 +183,6 @@ struct AlreadySearchView: View{
             }.hidden()
             VStack(alignment: .leading, spacing: 10){
                 ForEach(alreadySearched.uniqued(), id:\.self){result in
-                    Divider()
                     VStack{
                         HStack{
                             Text(result)
@@ -194,23 +195,27 @@ struct AlreadySearchView: View{
                             closeKeyboard()
                             self.itemResult = searchItemResults
                         })
-                        
                     }
-                    
                 }
                 Spacer()
                     .navigationBarHidden(true)
                 
                 Button(action: {
-                    withAnimation{
-                        removeList.toggle()
-                    }
-                    alreadySearched.removeAll()
+                    self.showConfirmation.toggle()
+                    
                 }, label: {
                     Text("Tout effacer")
                 })
             }
             .padding(.leading, 8)
+            .confirmationDialog("Confirmation Dialog", isPresented: $showConfirmation) {
+                Button("Annuler", role: .cancel){}
+                Button("Effacer tout", role: .destructive) {
+                    withAnimation{
+                    alreadySearched.removeAll()
+                    }
+                }
+            }
         }
     }
     var searchItemResults : [Item]{
