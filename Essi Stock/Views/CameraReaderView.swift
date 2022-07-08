@@ -17,7 +17,7 @@ struct CameraReaderView: View {
     var body: some View {
         ZStack{
             
-            CameraPreview(takePictureIsPressed: $takePictureIsPressed, showAlert: $showAlert)
+            //CameraPreview(takePictureIsPressed: $takePictureIsPressed, showAlert: $showAlert)
             CroppingFinderView()
             VStack{
                 Text("Cherchez un code à scanner ou prennez une photo pour rechercher l'article")
@@ -44,15 +44,15 @@ struct CameraReaderView: View {
 struct CroppingFinderView: View{
     
     
-   
+    
     @State private var xOffset: CGFloat = 0.0
     @State private var yOffset: CGFloat = 0.0
     
     @State private var lastXOffset: CGFloat = 0.0
     @State private var lastYOffset: CGFloat = 0.0
     
-    @State var generalWidth = 300.0
-    @State var generalHeigh = 300.0
+    @State var cropWidth = 150.0
+    @State var cropHeigh = 150.0
     var dotColor = Color.init(white: 1).opacity(0.9)
     var surrondColor = Color.black.opacity(0.45)
     
@@ -66,11 +66,11 @@ struct CroppingFinderView: View{
     @State var remainingHeight = 0.0
     
     
-    @State var posWidthFrame = 0.0
-    @State var negWidthFrame = 0.0
+    @State var rightWidthFrame = 0.0
+    @State var leftWidthFrame = 0.0
     
-    @State var posHeightFrame = 0.0
-    @State var negHeightFrame = 0.0
+    @State var downHeightFrame = 0.0
+    @State var upHeightFrame = 0.0
     
     
     @State var dotXOffset = 0.0
@@ -79,213 +79,216 @@ struct CroppingFinderView: View{
     @State var lastDotXOffset = 0.0
     @State var lastDotYOffset = 0.0
     
+    @State var xMagnification:CGFloat = 1
+    @State var yMagnification:CGFloat = 1.0
+    
+    @State var xLastMagnification = 1.0
+    @State var yLastMagnification = 1.0
+    
+    @State var offset:CGSize = CGSize(width: 0, height: 0)
+    @State var finalOffset:CGSize = CGSize(width: 0, height: 0)
+    
+    @State var xOffsetSize = 0.0
+    @State var yOffsetSize = 0.0
+    
+    @State var totalYOffset = 0.0
+    @State var totalXOffset = 0.0
     var body: some View{
         ZStack{
-           
-            Group{
-                //Up Rectangle
-                Rectangle()
-                    .foregroundColor(.red.opacity(0.7))
-//                    .foregroundColor(.black.opacity(0.6))
-                    .frame(width: screenWidth, height: negHeightFrame)
-                    .offset(y: -(generalHeigh/2)-(negHeightFrame/2)+yOffset)
-                //Down Rectangle
-                Rectangle()
-                    .foregroundColor(.yellow.opacity(0.7))
-//                    .foregroundColor(.black.opacity(0.6))
-                    .frame(width: screenWidth, height: posHeightFrame)
-                    .offset(y: (generalHeigh/2)+(posHeightFrame/2)+yOffset)
-                
-                //Right rectangle
-                Rectangle()
-                    .foregroundColor(.green.opacity(0.7))
-//                    .foregroundColor(.black.opacity(0.6))
-                    .frame(width: posWidthFrame, height: generalHeigh)
-                    .offset(x: (generalWidth/2)+(posWidthFrame/2) + xOffset, y: yOffset)
-                
-                //Left rectangle
-                Rectangle()
-                    .foregroundColor(.blue.opacity(0.7))
-//                    .foregroundColor(.black.opacity(0.6))
-                    .frame(width: negWidthFrame, height: generalHeigh)
-                    .offset(x: -(generalWidth/2) - (negWidthFrame/2) + xOffset, y: yOffset)
-                
-            }
-            
-            
             Rectangle()
-                .frame(width: generalWidth, height: generalHeigh)
-                .foregroundColor(.black.opacity(0.2))
-                .offset(x: xOffset, y: yOffset)
-                .gesture(DragGesture().onChanged { gesture in
-                    
-                    xOffset = gesture.translation.width + lastXOffset
-                    yOffset = gesture.translation.height + lastYOffset
-                    
-                    posWidthFrame = (remainingWidth/2) - xOffset
-                    //Limit to the right rectangle
-                    if posWidthFrame <= 0{
-                        posWidthFrame = 0
-                    }
-                    
-                    if posWidthFrame >= remainingWidth{
-                        posWidthFrame = remainingWidth
-                    }
-                    
-                    negWidthFrame = (remainingWidth/2) + xOffset
-                    //Limit to the left rectangle
-                    if negWidthFrame <= 0{
-                        negWidthFrame = 0
-                    }
-                    if negWidthFrame >= remainingWidth{
-                        negWidthFrame = remainingWidth
-                    }
-                    
-                    //MARK: -
-                    posHeightFrame = remainingHeight/2 - yOffset
-                    //Limit down rectangle
-                    if posHeightFrame <= 0{
-                        posHeightFrame = 0
-                    }
-                    if posHeightFrame >= remainingHeight{
-                        posHeightFrame = remainingHeight
-                    }
-                    
-                    negHeightFrame = remainingHeight/2 + yOffset
-                    //Limit up rectangle
-                    if negHeightFrame <= 0{
-                        negHeightFrame = 0
-                    }
-                    
-                    if negHeightFrame >= remainingHeight{
-                        negHeightFrame = remainingHeight
-                    }
-                    
-                    //MARK: - Direction
-                    if xOffset > lastXOffset{
-                        print("DEBUG: Direction droit")
-                        if xOffset >= widthLimit{
-                            xOffset = widthLimit
-                            
-                        }
-                    } else {
-                        print("DEBUG: Direction gauche")
-                        if xOffset  <= -widthLimit{
-                            xOffset = -widthLimit
-                        }
-                    }
-                    if yOffset < lastYOffset{
-                  
-                        print("DEBUG: Direction haut")
-                        if yOffset <= -heightLimit{
-                            yOffset = -heightLimit
-                        }
-                    }else {
-                        print("DEBUG: Direction bas")
-                        if yOffset >= heightLimit{
-                            yOffset = heightLimit
-                        }
-                    }
-                }
-                    .onEnded { _ in
-                        // Store Offset when ended drag
-                        self.lastXOffset = xOffset
-                        self.lastYOffset = yOffset
-                    })
+                .foregroundColor(.red.opacity(0.7))
+                .frame(width: screenWidth, height: upHeightFrame + totalYOffset)
+                .offset(y:-(upHeightFrame+cropHeigh)/2 + offset.height)
+            Rectangle()
+                .foregroundColor(.green.opacity(0.7))
+                .frame(width: screenWidth, height: upHeightFrame)
+                .offset(y:(upHeightFrame+cropHeigh)/2)
+            Rectangle()
+                .foregroundColor(.gray.opacity(0.7))
+                .frame(width: leftWidthFrame, height: cropHeigh-totalYOffset)
+                .offset(x:(leftWidthFrame+cropWidth)/2, y: offset.height)
+            Rectangle()
+                .foregroundColor(.blue.opacity(0.7))
+                .frame(width: leftWidthFrame+totalXOffset, height: cropHeigh-totalYOffset)
+                .offset(x:-(leftWidthFrame+cropWidth)/2 + offset.width, y: offset.height)
             
             
-                .onAppear(){
-                    // get screen size
-                    screenHeight = UIScreen.main.bounds.height
-                    screenWidth = UIScreen.main.bounds.width
-                    
-                    
-                    //get Limit cropping in function of size of the screen
-                    widthLimit = (UIScreen.main.bounds.width/2)-(generalWidth/2)
-                    heightLimit = (UIScreen.main.bounds.height/2)-(generalHeigh/2)
-                    
-                    //calcul des marges restantes
-                    remainingWidth = (screenWidth - generalWidth)
-                    remainingHeight = (screenHeight - generalHeigh)
-                   
-                    //calcul de la taille des rectanglee horizontau
-                    posWidthFrame = (screenWidth-generalWidth)/2
-                    negWidthFrame = (screenWidth-generalWidth)/2
-                    
-                    //calcul de la taille des rectangles verticaux
-                    posHeightFrame = (screenHeight-generalHeigh)/2
-                    negHeightFrame = (screenHeight-generalHeigh)/2
-                    
-                }
-            Group{
-            //Create the First Rectangle
+            //Parent rectangle
             Rectangle()
-                .stroke(lineWidth: 1)
-                .frame(width: generalWidth, height: generalHeigh)
-                .foregroundColor(.white)
-                .offset(x: xOffset, y: yOffset)
-            //Create Horizontal Rectangle
-            Rectangle()
-                .stroke(lineWidth: 0.5)
-                .frame(width: generalWidth, height: generalHeigh/3)
-                .foregroundColor(.white)
-                .offset(x: xOffset, y: yOffset)
-            //Create Vertical Rectangle
-            Rectangle()
-                .stroke(lineWidth: 0.5)
-                .frame(width: generalWidth/3, height: generalHeigh)
-                .foregroundColor(.white)
-                .offset(x: xOffset, y: yOffset)
-            }
+                .frame(width: cropWidth*xMagnification, height: cropHeigh*yMagnification)
+                .foregroundColor(.yellow.opacity(0.9))
+                .offset(x: offset.width, y: offset.height)
             
+            //Icon in the top-left corner
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 12))
                 .background(Circle().frame(width: 20, height: 20).foregroundColor(dotColor))
                 .frame(width: 20, height: 20)
                 .foregroundColor(.black)
-                .offset(x: -(generalWidth/2)+xOffset, y: -(generalHeigh/2)+yOffset)
-                .gesture(DragGesture().onChanged({ gesture in
+                .offset(x: (offset.width) - (xMagnification*cropWidth)/2,
+                        y: (offset.height) - (yMagnification*cropHeigh)/2)
+                .gesture(DragGesture().onChanged({gesture in
                     
-                    dotXOffset = gesture.translation.width + lastDotXOffset
-                    dotYOffset = gesture.translation.height + lastDotYOffset
-          
-                    generalHeigh = (generalHeigh/2) - dotYOffset
-                    if generalHeigh <= 120{
-                        generalHeigh = 120
+                    //Get offset gesture
+                    dotXOffset = gesture.translation.width + lastXOffset
+                    dotYOffset = gesture.translation.height + lastYOffset
+                    
+                    //Get the ratio of crop magnification
+                    xMagnification = (cropWidth-dotXOffset)/cropWidth
+                    yMagnification = (cropHeigh-dotYOffset)/cropHeigh
+                    
+                    //As you magnify, you technically need to modify offset as well, because magnification changes are not symmetric, meaning that you are modifying the magnfiication only be shifting the upper and left edges inwards, thus changing the center of the croppedingview, so the offset needs to move accordingly
+                    let xOffsetSize = (cropWidth * xLastMagnification)-(cropWidth * xMagnification)
+                    let yOffsetSize = (cropHeigh * yLastMagnification)-(cropHeigh * yMagnification)
+                    offset.width = finalOffset.width + xOffsetSize/2
+                    offset.height = finalOffset.height + yOffsetSize/2
+                    
+                    //limit when halving cropping
+                    if xMagnification <= 0.5{
+                        dotXOffset = cropWidth/2
+                        xMagnification = 0.5
+                        xLastMagnification = 0.5
+                        offset.width = cropWidth/4
+                        finalOffset.width = offset.width
+                        //lastXOffset = cropWidth/2
+                        
                     }
-                    generalWidth = (generalWidth/2) - dotXOffset
-                    if generalWidth <= 120{
-                        generalWidth = 120
+                    if yMagnification <= 0.5{
+                        dotYOffset = cropHeigh/2
+                        yMagnification = 0.5
+                        yLastMagnification = 0.5
+                        offset.height = cropHeigh/4
+                        finalOffset.height = offset.height
+                        //lastYOffset = cropHeigh/2
+                        
                     }
-                    remainingWidth = (screenWidth - generalWidth)
-                    remainingHeight = (screenHeight - generalHeigh)
                     
-                    posWidthFrame = (remainingWidth/2) + generalWidth
-                    negWidthFrame = (remainingWidth/2) + generalWidth
+                    //Limit on the left edges of the screen
+                    if dotXOffset <= -((screenWidth-cropWidth)/2){
+                        dotXOffset = -((screenWidth-cropWidth)/2)
+                        //lastXOffset = -((screenWidth-cropWidth)/2)
+                        offset.width = -((screenWidth-cropWidth)/4)
+                        finalOffset.width = offset.width
+                        let maxXMagnification = (leftWidthFrame+cropWidth)/cropWidth
+                        xMagnification = maxXMagnification
+                        xLastMagnification = maxXMagnification
+                        
+                    }
                     
-                    posHeightFrame = remainingHeight/2 + generalHeigh
-                    negHeightFrame = remainingHeight/2 + generalHeigh
+                    //Limit on the top edges of the screen
+                    
+                    if dotYOffset <= -((screenHeight-cropHeigh)/2){
+                        dotYOffset = -((screenHeight-cropHeigh)/2)
+                        //lastYOffset = -((screenHeight-cropHeigh)/2)
+                        offset.height = -((screenHeight-cropHeigh)/4)
+                        finalOffset.height = offset.height
+                        let maxYMagnification = (upHeightFrame+cropHeigh)/cropHeigh
+                        
+                        
+                        
+                        
+                        yMagnification = maxYMagnification
+                        yLastMagnification = maxYMagnification
+                    }
                     
                     
-                    widthLimit = (screenWidth/2)-(generalWidth/2)
-                    heightLimit = (screenHeight/2)-(generalHeigh/2)
+                    //print("DEBUG x Magni: \(xMagnification)")
+                    print("DEBUG y Magni: \(yMagnification)")
+                    print("DEBUG yOffsetSize \(yOffsetSize)")
+                    print("DEBUG yOffsetSize \(yOffsetSize)")
+                    print(offset)
                     
-                   
+                    
+                    totalYOffset = offset.height*2
+                    totalXOffset = offset.width*2
                 }).onEnded({ _ in
-                    lastDotXOffset = dotXOffset
-                    lastDotYOffset = dotYOffset
+                    
+                    //Store last gesture offset it's used for magnification calculations
+                    lastXOffset = dotXOffset
+                    lastYOffset = dotYOffset
+                    
+                    //Store last magnification ratio it's used for crop calculations
+                    xLastMagnification = xMagnification
+                    yLastMagnification = yMagnification
+                    
+                    //Store the last offset it's used for the continuation of cropping
+                    finalOffset = offset
                 }))
-                .onAppear(){
-                    lastDotXOffset = -(generalWidth/2)
-                    lastDotYOffset =  -(generalHeigh/2)
-                }
+            
+            //MARK: - Top-right gesture
+            //Icon in the top-left corner
+            Image(systemName: "arrow.up.left.and.arrow.down.right")
+                .font(.system(size: 12))
+                .background(Circle().frame(width: 20, height: 20).foregroundColor(dotColor))
+                .frame(width: 20, height: 20)
+                .foregroundColor(.black)
+                .offset(x: (offset.width) + (xMagnification*cropWidth)/2,
+                        y: (offset.height) - (yMagnification*cropHeigh)/2)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
+        
+        .onAppear(){
+            //Get screen size
+            screenWidth = UIScreen.main.bounds.width
+            screenHeight = UIScreen.main.bounds.height
+            
+            print(screenHeight)
+            
+            //Get height of top and bottom rectangles according to the height of the crop and height of th screen
+            upHeightFrame = (screenHeight-cropHeigh)/2
+            print(upHeightFrame)
+            
+            downHeightFrame = (screenHeight-cropHeigh)/2
+            print(downHeightFrame)
+            
+            leftWidthFrame = (screenWidth-cropWidth)/2
+            print(leftWidthFrame)
+        }
+        
+        
     }
+    
+    
+    
+    
 }
 
 
-struct CameraReaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraReaderView(showCameraReader: .constant(true))
+struct CroppingFinderView_Previews: PreviewProvider{
+    static var previews: some View{
+        
+        CroppingFinderView()
+        
+            .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+        CroppingFinderView()
+        
+            .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
     }
+    
 }
+
+
+/*
+ struct CameraReaderView_Previews: PreviewProvider {
+ static var previews: some View {
+ CameraReaderView(showCameraReader: .constant(true))
+ }
+ }
+ */

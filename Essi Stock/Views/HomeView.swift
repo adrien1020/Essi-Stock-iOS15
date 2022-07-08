@@ -75,7 +75,6 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
             .environmentObject(apiServices)
             .onAppear{
-                
                 Task{
                     do {
                         print("DEBUG: Download data")

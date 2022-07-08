@@ -102,13 +102,18 @@ struct TabButton: View {
             do {
                 print("DEBUG: Download data")
                 try await apiServices.fetchData(urlString: "http://192.168.1.44:8000/api/")
+                let generator = UINotificationFeedbackGenerator()
+                await generator.notificationOccurred(.success)
             } catch RequestError.invalidURL{
                 print("DEBUG: Invalid URL")
+                let generator = UINotificationFeedbackGenerator()
+                await generator.notificationOccurred(.error)
             } catch RequestError.missingData{
                 print("DEBUG: Missing data")
+                let generator = UINotificationFeedbackGenerator()
+                await generator.notificationOccurred(.warning)
             }
-            let generator = UINotificationFeedbackGenerator()
-            await generator.notificationOccurred(.success)
+            
         }
     }
 

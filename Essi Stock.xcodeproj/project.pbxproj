@@ -31,7 +31,9 @@
 		9F55655C28592B520092EC26 /* ItemCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F55655B28592B520092EC26 /* ItemCellHelper.swift */; };
 		9F55655E285937880092EC26 /* dataSource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F55655D285937880092EC26 /* dataSource.json */; };
 		9F656A40285C4628003C00F7 /* ConfirmationDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */; };
+		9F67BAEF2877242000AFE2A8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F67BAEE2877242000AFE2A8 /* text.swift */; };
 		9F711EAB2862E5FE008B3FA1 /* TabStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F711EAA2862E5FE008B3FA1 /* TabStateViewModel.swift */; };
+		9F872F1D2875FF5A001F61EB /* d.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F872F1C2875FF5A001F61EB /* d.swift */; };
 		9F88F837285A797F00D0A8C9 /* SegmentedControlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */; };
 		9F88F839285A79CF00D0A8C9 /* TabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F838285A79CF00D0A8C9 /* TabModel.swift */; };
 		9F88F83B285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88F83A285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift */; };
@@ -72,7 +74,9 @@
 		9F55655B28592B520092EC26 /* ItemCellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellHelper.swift; sourceTree = "<group>"; };
 		9F55655D285937880092EC26 /* dataSource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dataSource.json; sourceTree = "<group>"; };
 		9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogView.swift; sourceTree = "<group>"; };
+		9F67BAEE2877242000AFE2A8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		9F711EAA2862E5FE008B3FA1 /* TabStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabStateViewModel.swift; sourceTree = "<group>"; };
+		9F872F1C2875FF5A001F61EB /* d.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = d.swift; sourceTree = "<group>"; };
 		9F88F836285A797F00D0A8C9 /* SegmentedControlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlHelper.swift; sourceTree = "<group>"; };
 		9F88F838285A79CF00D0A8C9 /* TabModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabModel.swift; sourceTree = "<group>"; };
 		9F88F83A285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewBuilderHelper.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				9F40EDC7285BCECC0053FFDF /* CartView.swift */,
 				9F656A3F285C4628003C00F7 /* ConfirmationDialogView.swift */,
 				9F55655A28592B3F0092EC26 /* Helpers */,
+				9F872F1C2875FF5A001F61EB /* d.swift */,
+				9F67BAEE2877242000AFE2A8 /* text.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 				9F88F83B285A7A7B00D0A8C9 /* HomeViewBuilderHelper.swift in Sources */,
 				9F55653D28591F570092EC26 /* Essi_StockApp.swift in Sources */,
 				9F556551285920C40092EC26 /* ItemModel.swift in Sources */,
+				9F872F1D2875FF5A001F61EB /* d.swift in Sources */,
 				9F102EF8285A869C0022FBDB /* CameraReaderView.swift in Sources */,
 				9F40EDC8285BCECC0053FFDF /* CartView.swift in Sources */,
 				9F0949FC2859A43000662370 /* SearchBarHelper.swift in Sources */,
@@ -298,6 +305,7 @@
 				9F556555285922400092EC26 /* CategoritesLevelOneView.swift in Sources */,
 				9F55655C28592B520092EC26 /* ItemCellHelper.swift in Sources */,
 				9F556557285922530092EC26 /* CategoritesLevelTwoView.swift in Sources */,
+				9F67BAEF2877242000AFE2A8 /* text.swift in Sources */,
 				9F5565592859226B0092EC26 /* ItemsView.swift in Sources */,
 				9F88F839285A79CF00D0A8C9 /* TabModel.swift in Sources */,
 				9FC646B42863B310003C480E /* FavoritesView.swift in Sources */,
