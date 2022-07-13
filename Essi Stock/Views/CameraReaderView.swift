@@ -91,8 +91,10 @@ struct CroppingFinderView: View{
     @State private var yLastTopRightOffset = 0.0
     
     @State private var xTopRightMagnification : CGFloat = 1.0
+    @State private var yTopRightMagnification : CGFloat = 1.0
     
     @State private var xLastTopRightMagnification = 1.0
+    @State private var yLastTopRightMagnification = 1.0
     
     @State private var topRightOffset : CGSize = CGSize(width: 0, height: 0)
     @State private var finalTopRightOffset : CGSize = CGSize(width: 0, height: 0)
@@ -147,15 +149,14 @@ struct CroppingFinderView: View{
                     xTopLeftMagnification = (cropSize.width-xTopLeftOffset)/cropSize.width
                     yTopLeftMagnification = (cropSize.height-yTopLeftOffset)/cropSize.height
                     
-                    
+                    //limit when halving cropping in x
                     if (xTopLeftMagnification+xLastTopRightMagnification)-1 <= 0.5{
-                                                
                         xTopLeftMagnification = (1-xLastTopRightMagnification)+0.5
-                        print("DEBUG : xTopLeftMagnification = \(xTopLeftMagnification)")
-                        xTopLeftOffset = cropSize.width/2
-                        print("DEBUG : topLeftOffset = \(topLeftOffset.width)")
-                        //topLeftOffset.width = cropSize.width/4
-                        //finalTopLeftOffset.width = topLeftOffset.width
+                    }
+                    
+                    //limit when halving cropping in y
+                    if yTopLeftMagnification <= 0.5{
+                        yTopLeftMagnification = 0.5
                     }
                     
                     
@@ -241,16 +242,32 @@ struct CroppingFinderView: View{
                 
                 }).onEnded({ _ in
                     
-                    //Store last gesture offset it's used for magnification calculations
-                    xLastTopLeftOffset = xTopLeftOffset
-                    yLastTopLeftOffset = yTopLeftOffset
+                    //Store the last gesture offset it's used for magnification calculations in x
+                    if (xTopLeftMagnification+xLastTopRightMagnification)-1 <= 0.5{
+                        //Limit when halving cropping in x
+                        xLastTopLeftOffset = cropSize.width/2 + xLastTopRightOffset
+                    } else {
+                        xLastTopLeftOffset = xTopLeftOffset
+                    }
+                    
+                    //Store the last gesture offset it's used for magnification calculations in y
+                    if yTopLeftMagnification <= 0.5{
+                        yLastTopLeftOffset = cropSize.height/2
+                    } else {
+                        yLastTopLeftOffset = yTopLeftOffset
+                    }
+                    
+                    
+                    
+                    
+                    
                     
                     //Store last magnification ratio it's used for crop calculations
                     xLastTopLeftMagnification = xTopLeftMagnification
                     yLastTopLeftMagnification = yTopLeftMagnification
                     
-                    print("DEBUG : xLastTopLeftMagnification = \(xLastTopLeftMagnification)")
-                    print("DEBUG : xLastTopRightMagnification = \(xLastTopRightMagnification)")
+                    //print("DEBUG : xLastTopLeftMagnification = \(xLastTopLeftMagnification)")
+                    //print("DEBUG : xLastTopRightMagnification = \(xLastTopRightMagnification)")
                     
                     //Store the last offset it's used for the continuation of cropping
                     
@@ -266,9 +283,6 @@ struct CroppingFinderView: View{
                 .foregroundColor(.black)
                 .offset(x: (topRightOffset.width) + (xTopRightMagnification*cropSize.width)/2,
                         y: (topLeftOffset.height) - (yTopLeftMagnification*cropSize.height)/2)
-            
-            
-            
                 .gesture(DragGesture().onChanged({gesture in
                     
                     isTopLeftArrow = false
@@ -279,63 +293,46 @@ struct CroppingFinderView: View{
                     
                     //Get the ratio of crop magnification
                     xTopRightMagnification = (cropSize.width+xTopRightOffset)/cropSize.width
+                    yTopRightMagnification = (cropSize.height-yTopRightOffset)/cropSize.height
                     
-                    yTopLeftMagnification = (cropSize.height-yTopRightOffset)/cropSize.height
-                    
-                    
+                    //limit when halving cropping in x
                     if (xTopRightMagnification+xLastTopLeftMagnification)-1 <= 0.5{
                         xTopRightMagnification = (1-xLastTopLeftMagnification)+0.5
-                        print("DEBUG : xTopRightMagnification = \(xTopRightMagnification)")
-                        //xTopRightOffset = -cropSize.width/2
-                        print("DEGUG: xTopRightOffset = \(topRightOffset.width)")
-                        print(xOffsetSize)
-                        //topRightOffset.width = -cropSize.width/4
-                        //finalTopRightOffset.width = -topRightOffset.width
+                    }
+                    //limit when halving cropping in x
+                    
+                    if yTopLeftMagnification <= 0.5{
+                        yTopRightMagnification = 0.5
                     }
                     
                     
                     
-                    
                     xOffsetSize = (cropSize.width * xLastTopRightMagnification) - (cropSize.width*xTopRightMagnification)
-                    yOffsetSize = (cropSize.height * yLastTopLeftMagnification)-(cropSize.height * yTopLeftMagnification)
-                    
+                    yOffsetSize = (cropSize.height * yLastTopLeftMagnification)-(cropSize.height*yTopLeftMagnification)
                     
                     topRightOffset.width = (finalTopRightOffset.width) - xOffsetSize/2
                     topLeftOffset.height = finalTopLeftOffset.height + yOffsetSize/2
                     
-                    
                     xTotalTopRight = topRightOffset.width*2
                     yTotalOffset = topLeftOffset.height*2
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 }).onEnded({_ in
                     
-                    xLastTopRightOffset = xTopRightOffset
+                    //Store the last gesture offset it's used for magnification calculations
+                    if (xTopRightMagnification+xLastTopLeftMagnification)-1 <= 0.5{
+                        //Limit when halving cropping
+                        xLastTopRightOffset = -cropSize.width/2 + xLastTopLeftOffset
+                    } else {
+                        xLastTopRightOffset = xTopRightOffset
+                    }
                     yLastTopLeftOffset = yTopRightOffset
-                    
-                    
                     
                     //Store last magnification ratio it's used for crop calculations
                     xLastTopRightMagnification = xTopRightMagnification
                     yLastTopLeftMagnification = yTopLeftMagnification
                     
-                    
-                    print("DEBUG : xLastTopRightMagnification = \(xLastTopRightMagnification)")
-                    print("DEBUG : xLastTopLeftMagnification = \(xLastTopLeftMagnification)")
-                    
                     finalTopLeftOffset = topLeftOffset
                     finalTopRightOffset = topRightOffset
-                    
-                  
-                    
-                    
-                    
                 }))
         }
         
