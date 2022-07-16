@@ -20,17 +20,17 @@ struct CameraReaderView: View {
             //CameraPreview(takePictureIsPressed: $takePictureIsPressed, showAlert: $showAlert)
             CroppingFinderView()
             /*
-            VStack{
-                Text("Cherchez un code à scanner ou prennez une photo pour rechercher l'article")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.vertical, 50)
-                    .padding(.horizontal, 20)
-                Spacer()
-                PhotoButtonHelper(takePictureIsPressed: $takePictureIsPressed)
-            }*/
+             VStack{
+             Text("Cherchez un code à scanner ou prennez une photo pour rechercher l'article")
+             .font(.footnote)
+             .fontWeight(.bold)
+             .foregroundColor(.white)
+             .multilineTextAlignment(.center)
+             .padding(.vertical, 50)
+             .padding(.horizontal, 20)
+             Spacer()
+             PhotoButtonHelper(takePictureIsPressed: $takePictureIsPressed)
+             }*/
             
         }
         .alert("Your device does not support scanning a code from an item. Please use a device with a camera.", isPresented: $showAlert) {
@@ -45,6 +45,7 @@ struct CameraReaderView: View {
 struct CroppingFinderView: View{
     
     //MARK: - General size
+    
     @State private var screenSize : CGSize = CGSize(width: 0, height: 0)
     @State private var cropSize : CGSize = CGSize(width: 150, height: 150)
     
@@ -53,12 +54,13 @@ struct CroppingFinderView: View{
     @State private var upHeightFrame : CGFloat = 0.0
     @State private var downHeightFrame : CGFloat = 0.0
     
-  
+    
     //MARK: - Logic variables
+    
     @State private var isTopArrow: Bool = false
     @State private var isLeftArrow: Bool = false
     
-    //MARK: - Magnifications variables
+    //MARK: - Magnification variables
     
     @State private var yTopMagnification : CGFloat = 1.0
     @State private var yLastTopMagnification : CGFloat = 1.0
@@ -72,77 +74,71 @@ struct CroppingFinderView: View{
     @State private var yBottomMagnification: CGFloat = 1.0
     @State private var yLastBottomMagnification: CGFloat = 1.0
     
-    //MARK: - Top variables
+    // MARK: - Gesture offset variables
     
-    @State private var yLastTopOffset : CGFloat = 0.0
+    @State private var xTopLeftOffset : CGFloat = 0.0
+    @State private var yTopLeftOffset : CGFloat = 0.0
     
-    // MARK: - Left variables
+    @State private var xTopRightOffset : CGFloat = 0.0
+    @State private var yTopRightOffset : CGFloat = 0.0
     
-    
-    @State private var xTopLeftOffset : CGFloat = 0
-    @State private var yTopLeftOffset : CGFloat = 0
-    
-    @State private var xLastLeftOffset : CGFloat = 0.0
-    
-    
-    
-    
-    @State private var leftOffset : CGSize = CGSize(width: 0, height: 0)
-    @State private var finalLeftOffset : CGSize = CGSize(width: 0, height: 0)
-
-    @State private var xTopRightOffset : CGFloat = 0
-    @State private var yTopRightOffset : CGFloat = 0
-    
-    @State private var xLastRightOffset : CGFloat = 0.0
-    
-    
-    
-    @State private var rightOffset : CGSize = CGSize(width: 0, height: 0)
-    @State private var finalRightOffset : CGSize = CGSize(width: 0, height: 0)
-    
-    @State private var xTotalTopRight: CGFloat = 0.0
-
     @State private var xBottomLeftOffset : CGFloat = 0.0
     @State private var yBottomLeftOffset: CGFloat = 0.0
-    
-    
     
     @State private var xBottomRightOffset:CGFloat = 0.0
     @State private var yBottomRightOffset: CGFloat = 0.0
     
-    @State private var bottomOffset : CGSize = CGSize(width: 0, height: 0)
     
+    //MARK: - Top Last offset variables
+    
+    @State private var xLastLeftOffset : CGFloat = 0.0
+    @State private var xLastRightOffset : CGFloat = 0.0
     @State private var yLastBottomOffset: CGFloat = 0.0
+    @State private var yLastTopOffset : CGFloat = 0.0
+    
+    // MARK: - Offset variables
+    
+    @State private var leftOffset : CGSize = CGSize(width: 0, height: 0)
+    @State private var finalLeftOffset : CGSize = CGSize(width: 0, height: 0)
+    
+    @State private var rightOffset : CGSize = CGSize(width: 0, height: 0)
+    @State private var finalRightOffset : CGSize = CGSize(width: 0, height: 0)
+    
+    @State private var bottomOffset : CGSize = CGSize(width: 0, height: 0)
     @State private var finalBottomOffset: CGSize = CGSize(width: 0, height: 0)
     
-    @State private var yTotalBottom: CGFloat = 0.0
+    //MARK: - Total offset variables
+    @State private var xTotalRightOffset: CGFloat = 0.0
+    @State private var xTotalLeftOffset : CGFloat = 0.0
+    @State private var yTotalBottomOffset: CGFloat = 0.0
+    @State private var yTotalTopOffset : CGFloat = 0.0
     
-    @State private var xTotalOffset : CGFloat = 0.0
-    @State private var yTotalOffset : CGFloat = 0.0
     
-
     
     var body: some View{
         ZStack{
+            
+            //MARK: - Mask rectangles
+            
             Rectangle()
                 .foregroundColor(.red.opacity(0.7))
-                .frame(width: screenSize.width, height: upHeightFrame + yTotalOffset)
+                .frame(width: screenSize.width, height: upHeightFrame + yTotalTopOffset)
                 .offset(y:-(upHeightFrame+cropSize.height)/2 + leftOffset.height)
             Rectangle()
                 .foregroundColor(.green.opacity(0.7))
-                .frame(width: screenSize.width, height: upHeightFrame - yTotalBottom)
+                .frame(width: screenSize.width, height: upHeightFrame - yTotalBottomOffset)
                 .offset(y:(upHeightFrame+cropSize.height)/2 + bottomOffset.height)
             Rectangle()
                 .foregroundColor(.gray.opacity(0.7))
-                .frame(width: rightWidthFrame - xTotalTopRight, height: isTopArrow ? cropSize.height - (yTotalOffset-yTotalBottom) : cropSize.height - (yTotalOffset - yTotalBottom))
+                .frame(width: rightWidthFrame - xTotalRightOffset, height: isTopArrow ? cropSize.height - (yTotalTopOffset-yTotalBottomOffset) : cropSize.height - (yTotalTopOffset - yTotalBottomOffset))
                 .offset(x:(leftWidthFrame+cropSize.width)/2 + rightOffset.width, y: isTopArrow ? leftOffset.height + finalBottomOffset.height : bottomOffset.height + finalLeftOffset.height)
             Rectangle()
                 .foregroundColor(.blue.opacity(0.7))
-                .frame(width: leftWidthFrame+xTotalOffset, height: isTopArrow ? cropSize.height - (yTotalOffset-yTotalBottom) : cropSize.height-(yTotalOffset - yTotalBottom))
+                .frame(width: leftWidthFrame+xTotalLeftOffset, height: isTopArrow ? cropSize.height - (yTotalTopOffset-yTotalBottomOffset) : cropSize.height-(yTotalTopOffset - yTotalBottomOffset))
                 .offset(x:-(leftWidthFrame+cropSize.width)/2 + leftOffset.width, y: isTopArrow ? leftOffset.height + finalBottomOffset.height : bottomOffset.height + finalLeftOffset.height)
             
+            //MARK: - Parent rectangle
             
-            //Parent rectangle
             Rectangle()
                 .frame(width: isLeftArrow ? (cropSize.width)*((xLeftMagnification+xLastRightMagnification)-1) : (cropSize.width)*((xRightMagnification + xLastLeftMagnification)-1),
                        height: isTopArrow ? (cropSize.height) * ((yTopMagnification + yLastBottomMagnification)-1) : (cropSize.height) * ((yBottomMagnification + yLastTopMagnification)-1))
@@ -150,7 +146,7 @@ struct CroppingFinderView: View{
                 .offset(x: isLeftArrow ? leftOffset.width+finalRightOffset.width  : rightOffset.width+finalLeftOffset.width ,
                         y: isTopArrow ? leftOffset.height+finalBottomOffset.height : bottomOffset.height + finalLeftOffset.height)
             
-            //Icon in the top-left corner
+            //MARK: - Top-Left side
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 12))
                 .background(Circle().frame(width: 20, height: 20).foregroundColor(.orange))
@@ -162,6 +158,7 @@ struct CroppingFinderView: View{
                     
                     isLeftArrow = true
                     isTopArrow = true
+                    
                     //Get offset gesture
                     xTopLeftOffset = gesture.translation.width + xLastLeftOffset
                     yTopLeftOffset = gesture.translation.height + yLastTopOffset
@@ -197,17 +194,14 @@ struct CroppingFinderView: View{
                     leftOffset.width = (finalLeftOffset.width) + (xOffsetSize)/2
                     leftOffset.height = (finalLeftOffset.height) + yOffsetSize/2
                     
-                    xTotalOffset = leftOffset.width*2
-                    yTotalOffset = leftOffset.height*2
-                    
-                    print(leftOffset)
-                    
-                    
+                    xTotalLeftOffset = leftOffset.width*2
+                    yTotalTopOffset = leftOffset.height*2
+                   
                 }).onEnded({ _ in
                     
                     //Store the last gesture offset it's used for magnification calculations in x
                     if (xLeftMagnification+xLastRightMagnification)-1 <= 0.5{
-                        //Limit when halving cropping in x
+                        //Set value limit when halving cropping in x
                         xLastLeftOffset = cropSize.width/2 + xLastRightOffset
                     } else {
                         xLastLeftOffset = xTopLeftOffset
@@ -215,6 +209,7 @@ struct CroppingFinderView: View{
                     
                     //Store the last gesture offset it's used for magnification calculations in y
                     if (yTopMagnification + yLastBottomMagnification) - 1 <= 0.5{
+                        //Set value limit when halving cropping in y
                         yLastTopOffset = cropSize.height/2 + yLastBottomOffset
                     } else {
                         yLastTopOffset = yTopLeftOffset
@@ -237,8 +232,8 @@ struct CroppingFinderView: View{
                     finalLeftOffset = leftOffset
                 }))
             
-            //MARK: - Top-right gesture
-            //Icon in the top-left corner
+            //MARK: - Top-Right side
+            
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 12))
                 .background(Circle().frame(width: 20, height: 20).foregroundColor(.orange))
@@ -250,6 +245,7 @@ struct CroppingFinderView: View{
                     
                     isLeftArrow = false
                     isTopArrow = true
+                    
                     //Get offset gesture
                     xTopRightOffset = gesture.translation.width + xLastRightOffset
                     yTopRightOffset = gesture.translation.height + yLastTopOffset
@@ -273,13 +269,11 @@ struct CroppingFinderView: View{
                         xRightMagnification = (rightWidthFrame/cropSize.width) + 1
                     }
                     
-               
                     //Limit on the top edges of the screen
                     if yTopRightOffset <= -((screenSize.height-cropSize.height)/2){
                         yTopMagnification = (upHeightFrame/cropSize.height) + 1
                         
                     }
-                    
                     
                     let xOffsetSize = (cropSize.width * xLastRightMagnification) - (cropSize.width * xRightMagnification)
                     let yOffsetSize = (cropSize.height * yLastTopMagnification) - (cropSize.height * yTopMagnification)
@@ -287,17 +281,14 @@ struct CroppingFinderView: View{
                     rightOffset.width = (finalRightOffset.width) - xOffsetSize/2
                     leftOffset.height = finalLeftOffset.height + yOffsetSize/2
                     
-                    xTotalTopRight = rightOffset.width*2
-                    yTotalOffset = leftOffset.height*2
+                    xTotalRightOffset = rightOffset.width*2
+                    yTotalTopOffset = leftOffset.height*2
                     
-                    
-                    print(rightOffset)
-                    print(leftOffset)
                 }).onEnded({_ in
                     
                     //Store the last gesture offset it's used for magnification calculations
                     if (xRightMagnification+xLastLeftMagnification)-1 <= 0.5{
-                        //Limit when halving cropping
+                        //Set value limit when halving cropping in x
                         xLastRightOffset = -cropSize.width/2 + xLastLeftOffset
                     } else {
                         xLastRightOffset = xTopRightOffset
@@ -305,12 +296,13 @@ struct CroppingFinderView: View{
                     
                     //Store the last gesture offset it's used for magnification calculations in y
                     if (yTopMagnification + yLastBottomMagnification) - 1 <= 0.5 {
+                        //Set value limit when halving cropping in y
                         yLastTopOffset = cropSize.width/2 + yLastBottomOffset
                     } else {
                         yLastTopOffset = yTopRightOffset
                     }
                     
-                    //Store the last gesture offset when its on left limit
+                    //Store the last gesture offset when its on right limit
                     if xTopRightOffset >= ((screenSize.width-cropSize.width)/2){
                         xLastRightOffset = ((screenSize.width-cropSize.width)/2)
                     }
@@ -324,12 +316,13 @@ struct CroppingFinderView: View{
                     xLastRightMagnification = xRightMagnification
                     yLastTopMagnification = yTopMagnification
                     
+                    //Store the last offset it's used for the continuation of cropping
                     finalLeftOffset = leftOffset
                     finalRightOffset = rightOffset
                 }))
             
-            //MARK: - Bottom-left gesture
-            //Icon in the bottom-left corner
+            //MARK: - Bottom-Left side
+
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 12))
                 .background(Circle().frame(width: 20, height: 20).foregroundColor(.orange))
@@ -346,20 +339,15 @@ struct CroppingFinderView: View{
                     xBottomLeftOffset = gesture.translation.width + xLastLeftOffset
                     yBottomLeftOffset = gesture.translation.height + yLastBottomOffset
                     
-                    
-                    
                     //Get the ratio of crop magnification
                     xLeftMagnification = (cropSize.width-xBottomLeftOffset)/cropSize.width
                     yBottomMagnification = (cropSize.height+yBottomLeftOffset)/cropSize.height
-                    
-                   
                     
                     //limit when halving cropping in x
                     if (xLeftMagnification + xLastRightMagnification) - 1 <= 0.5{
                         xLeftMagnification = (1 - xLastRightMagnification) + 0.5
                     }
                     
-                   
                     //Limit when halving cropping in y
                     if (yBottomMagnification + yTopMagnification) - 1 <=  0.5{
                         yBottomMagnification =  (1-yLastTopMagnification) + 0.5
@@ -370,35 +358,27 @@ struct CroppingFinderView: View{
                         xLeftMagnification = (leftWidthFrame/cropSize.width) + 1
                     }
                     
-                
+                    
                     //Limit on the top edges of the screen
                     if yBottomLeftOffset >= ((screenSize.height-cropSize.height)/2){
                         yBottomMagnification = (downHeightFrame/cropSize.height) + 1
-                        
-                        
                     }
                     
                     //As you magnify, you technically need to modify offset as well, because magnification changes are not symmetric, meaning that you are modifying the magnfiication only be shifting the upper and left edges inwards, thus changing the center of the croppedingview, so the offset needs to move accordingly
-                   
                     let xOffsetSize = (cropSize.width * xLastLeftMagnification)-(cropSize.width * xLeftMagnification)
                     let yOffsetSize = (cropSize.height * yLastBottomMagnification) - (cropSize.height * yBottomMagnification)
-          
+                    
                     leftOffset.width = (finalLeftOffset.width) + (xOffsetSize)/2
                     bottomOffset.height = (finalBottomOffset.height) - yOffsetSize/2
                     
-                    xTotalOffset = leftOffset.width*2
-                    yTotalBottom = bottomOffset.height*2
-                    
-                    print(leftOffset)
-                    print(bottomOffset)
-                   
-                    
+                    xTotalLeftOffset = leftOffset.width*2
+                    yTotalBottomOffset = bottomOffset.height*2
                     
                 }).onEnded({ _ in
                     
                     //Store the last gesture offset it's used for magnification calculations in x
                     if (xLeftMagnification+xLastRightMagnification)-1 <= 0.5{
-                        //Limit when halving cropping in x
+                        //Set value limit when halving cropping in x
                         xLastLeftOffset = cropSize.width/2 + xLastRightOffset
                     } else {
                         xLastLeftOffset = xBottomLeftOffset
@@ -406,6 +386,7 @@ struct CroppingFinderView: View{
                     
                     //Store the last gesture offset it's used for magnification calculations in y
                     if (yBottomMagnification + yLastTopMagnification)-1 <= 0.5{
+                        //Set value limit when halving cropping in y
                         yLastBottomOffset = -cropSize.height/2 + yLastTopOffset
                     } else {
                         yLastBottomOffset = yBottomLeftOffset
@@ -413,12 +394,10 @@ struct CroppingFinderView: View{
                     
                     //Store the last gesture offset when its on left limit
                     if xBottomLeftOffset <= -((screenSize.width-cropSize.width)/2){
-                       
                         xLastLeftOffset = -((screenSize.width-cropSize.width)/2)
                     }
                     
-                    
-                    //Store the last gesture offset when its on top limit
+                    //Store the last gesture offset when its on bottom limit
                     if yBottomLeftOffset >= ((screenSize.height-cropSize.height)/2){
                         yLastBottomOffset = ((screenSize.height-cropSize.height)/2)
                     }
@@ -432,10 +411,8 @@ struct CroppingFinderView: View{
                     finalBottomOffset = bottomOffset
                 }))
             
-                
-            
-            //MARK: - Bottom-right gesture
-            //Icon in the bottom-right corner
+            //MARK: - Bottom-Right Side
+
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 12))
                 .background(Circle().frame(width: 20, height: 20).foregroundColor(.orange))
@@ -452,7 +429,6 @@ struct CroppingFinderView: View{
                     xBottomRightOffset = gesture.translation.width + xLastRightOffset
                     yBottomRightOffset = gesture.translation.height + yLastBottomOffset
                     
-                    
                     //Get the ratio of crop magnification
                     xRightMagnification = (cropSize.width+xBottomRightOffset)/cropSize.width
                     yBottomMagnification = (cropSize.height+yBottomRightOffset)/cropSize.height
@@ -463,7 +439,6 @@ struct CroppingFinderView: View{
                     }
                     
                     //Limit when halving cropping in y
-                    
                     if (yBottomMagnification + yTopMagnification) - 1 <=  0.5{
                         yBottomMagnification =  (1 - yLastTopMagnification) + 0.5
                     }
@@ -473,47 +448,39 @@ struct CroppingFinderView: View{
                         xRightMagnification = (rightWidthFrame/cropSize.width) + 1
                     }
                     
-                    
                     //Limit on the bottom edges of the screen
-        
                     if yBottomRightOffset >= ((screenSize.height-cropSize.height)/2){
                         yBottomMagnification = (downHeightFrame/cropSize.height) + 1
                     }
                     
                     //As you magnify, you technically need to modify offset as well, because magnification changes are not symmetric, meaning that you are modifying the magnfiication only be shifting the upper and left edges inwards, thus changing the center of the croppedingview, so the offset needs to move accordingly
-                   
                     let xOffsetSize = (cropSize.width * xLastRightMagnification) - (cropSize.width * xRightMagnification)
                     let yOffsetSize = (cropSize.height * yLastBottomMagnification) - (cropSize.height * yBottomMagnification)
                     
                     rightOffset.width = (finalRightOffset.width) - (xOffsetSize)/2
                     bottomOffset.height = (finalBottomOffset.height) - yOffsetSize/2
                     
-                    xTotalTopRight = rightOffset.width*2
-                    yTotalBottom = bottomOffset.height*2
-                   
-                    print(rightOffset)
-                    print(bottomOffset)
+                    xTotalRightOffset = rightOffset.width*2
+                    yTotalBottomOffset = bottomOffset.height*2
                     
                 }).onEnded({ _ in
-                    
                     //Store the last gesture offset it's used for magnification calculations
-                    
                     if (xRightMagnification+xLastLeftMagnification)-1 <= 0.5{
-                        //Limit when halving cropping
+                        //Set value limit when halving cropping in x
                         xLastRightOffset = -cropSize.width/2 + xLastLeftOffset
                     } else {
-                       
                         xLastRightOffset = xBottomRightOffset
                     }
                     
                     //Store the last gesture offset it's used for magnification calculations in y
                     if (yBottomMagnification + yLastTopMagnification)-1 <= 0.5{
+                        //Set value limit when halving cropping in y
                         yLastBottomOffset = -cropSize.height/2 + yLastTopOffset
                     } else {
                         yLastBottomOffset = yBottomRightOffset
                     }
                     
-                    //Store the last gesture offset when its on left limit
+                    //Store the last gesture offset when its on right limit
                     if xBottomRightOffset >= ((screenSize.width-cropSize.width)/2){
                         xLastRightOffset = ((screenSize.width-cropSize.width)/2)
                     }
@@ -522,7 +489,7 @@ struct CroppingFinderView: View{
                     if yBottomRightOffset >= ((screenSize.height-cropSize.height)/2){
                         yLastBottomOffset = ((screenSize.height-cropSize.height)/2)
                     }
-
+                    
                     //Store last magnification ratio it's used for crop calculations
                     xLastRightMagnification = xRightMagnification
                     yLastBottomMagnification = yBottomMagnification
@@ -530,33 +497,24 @@ struct CroppingFinderView: View{
                     //Store the last offset it's used for the continuation of cropping
                     finalRightOffset = rightOffset
                     finalBottomOffset = bottomOffset
-                    
                 }))
         }
         .onAppear(){
             //Get screen size
-            screenSize.width = 320 //UIScreen.main.bounds.width
-            screenSize.height = 720 //UIScreen.main.bounds.height
+            screenSize.width = UIScreen.main.bounds.width
+            screenSize.height = UIScreen.main.bounds.height
             
             //Get height of top and bottom rectangles according to the height of the crop and height of th screen
             upHeightFrame = (screenSize.height-cropSize.height)/2
-            print(upHeightFrame)
-            
             downHeightFrame = (screenSize.height-cropSize.height)/2
-            print(downHeightFrame)
-            
             leftWidthFrame = (screenSize.width-cropSize.width)/2
-            print(leftWidthFrame)
-            
             rightWidthFrame = (screenSize.width-cropSize.width)/2
         }
     }
 }
 
-
 struct CroppingFinderView_Previews: PreviewProvider{
     static var previews: some View{
-        
         CroppingFinderView()
             .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
         CroppingFinderView()
@@ -564,11 +522,9 @@ struct CroppingFinderView_Previews: PreviewProvider{
     }
 }
 
+struct CameraReaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        CameraReaderView(showCameraReader: .constant(true))
+    }
+}
 
-/*
- struct CameraReaderView_Previews: PreviewProvider {
- static var previews: some View {
- CameraReaderView(showCameraReader: .constant(true))
- }
- }
- */
